@@ -1,43 +1,38 @@
 import pygame
-class Inicializacao:
+#Class principal do jogo que opera as 3 funções principais do Pygame:
+#Criar seu estado inicial, atualizar ele e desenhar na tela.
+class Game:
     def __init__(self):
         pygame.init()
+        self.window = pygame.display.set_mode((1024, 720), vsync=True, flags=pygame.SCALED)
+
+        #Cria dicionario de assets para serem utilizados
         self.assets = {
 
-        }   
+        }
+
+        #Cria dicionario de state(infos diversas) a serem utilizados
         self.state = {
 
         } 
 
-class Atualiza_estado:
-    def __init__(self, estado):
-        self.estado = estado
-
-    def atualiza(self):
+    #Função da classe responsavel por atualizar o jogo
+    def atualiza_estado(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return False
         return True
-
-class Desenha:
-    def __init__(self, window, inicializacao):
-        self.window = window
-        self.inicializacao = inicializacao
-
-    def frame(self):
+    
+    #Função da classe responsavel por mostrar o jogo atualizado
+    def desenha(self):
         self.window.fill((0, 0, 0))                
 
         pygame.display.update()
-
-class Game:
-    def __init__(self):
-        self.estado = Inicializacao()
-        self.window = pygame.display.set_mode((1024, 720), vsync=True, flags=pygame.SCALED)
-        self.atualiza_estado = Atualiza_estado(self.estado)
-        self.desenha = Desenha(self.window, self.estado)
+        
+    #Função da classe responsavel por rodar o jogo ate ele ser encerrado
     def start(self):
-        while self.atualiza_estado.atualiza():
-            self.desenha.frame()
+        while self.atualiza_estado():
+            self.desenha()
 
 game = Game()
 game.start()
