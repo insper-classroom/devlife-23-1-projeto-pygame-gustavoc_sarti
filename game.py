@@ -5,7 +5,7 @@ class Game:
     def __init__(self):
         pygame.init()
         self.window = pygame.display.set_mode((1024, 720), vsync=True, flags=pygame.SCALED)
-
+        pygame.display.set_caption('Oi gostoso')
         #Cria dicionario de assets para serem utilizados
         self.assets = {
 
