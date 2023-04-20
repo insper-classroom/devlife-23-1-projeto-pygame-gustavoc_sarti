@@ -1,0 +1,8 @@
+import pygame
+
+SCREEN_HEIGHT = 720
+SCREEN_WIDTH = 1024
+
+MAP_HEIGHT = 500
+MAP_WIDTH = 720
+
