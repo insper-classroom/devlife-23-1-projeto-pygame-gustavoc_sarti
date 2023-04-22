@@ -12,7 +12,7 @@ class Game:
         self.assets = {
             'player': pygame.transform.scale(player, (50, 50))
         }
-
+        
         #Cria dicionario de state(infos diversas) a serem utilizados
         self.state = {
 
