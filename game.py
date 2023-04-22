@@ -10,7 +10,7 @@ class Game:
         self.assets = {
 
         }
-
+        
         #Cria dicionario de state(infos diversas) a serem utilizados
         self.state = {
 
