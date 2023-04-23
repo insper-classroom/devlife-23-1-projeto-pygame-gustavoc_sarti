@@ -8,7 +8,7 @@ class Game:
         self.window = pygame.display.set_mode((1024, 720), vsync=True, flags=pygame.SCALED)
         pygame.display.set_caption('')
         #Cria dicionario de assets para serem utilizados
-        player = pygame.image.load('images/square.png')
+        player = pygame.image.load('assets/images/square.png')
         self.assets = {
             'player': pygame.transform.scale(player, (50, 50))
         }
