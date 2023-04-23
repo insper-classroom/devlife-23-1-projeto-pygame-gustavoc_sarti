@@ -35,6 +35,3 @@ class Game:
     def start(self):
         while self.atualiza_estado():
             self.desenha(self.assets, self.state)
-
-game = Game()
-game.start()
