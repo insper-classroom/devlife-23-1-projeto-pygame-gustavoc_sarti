@@ -18,20 +18,20 @@ class Game:
 
         } 
 
-    #Função da classe responsavel por atualizar o jogo
+    #Método responsavel por atualizar o jogo
     def atualiza_estado(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return False
         return True
     
-    #Função da classe responsavel por mostrar o jogo atualizado
+    #Método responsavel por mostrar o jogo atualizado
     def desenha(self, assets, state):
         self.window.fill((0, 0, 0))                
         self.window.blit(assets['player'], (100, 100)) 
         pygame.display.update()
         
-    #Função da classe responsavel por rodar o jogo ate ele ser encerrado
+    #Método responsavel por rodar o jogo ate ele ser encerrado
     def start(self):
         while self.atualiza_estado():
             self.desenha(self.assets, self.state)
