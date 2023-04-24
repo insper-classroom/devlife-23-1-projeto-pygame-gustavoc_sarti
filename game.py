@@ -1,5 +1,6 @@
 import pygame
 from sprites.player import *
+from config import *
 #Class principal do jogo que opera as 3 funções principais do Pygame:
 #Criar seu estado inicial, atualizar ele e desenhar na tela.
 class Game:
@@ -37,3 +38,6 @@ class Game:
     def start(self):
         while self.atualiza_estado():
             self.desenha(self.assets, self.state)
+class Mapa:
+    def __init__(self):
+        self.map = MAP

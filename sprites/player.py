@@ -1,7 +1,7 @@
 import pygame as pyg
 
 class Player:
-
+    
     def __init__(self, pos, objects):
         player = pyg.image.load('assets/pixil/player_01.pixil')
         self.image = pyg.transform.scale(player, (50, 50))
