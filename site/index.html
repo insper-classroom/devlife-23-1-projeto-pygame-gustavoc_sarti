@@ -7,28 +7,29 @@
 </head>
 <body>
     <header>
-        <div class = 'header'>
+        <div class = 'header' id="home">
             <nav class="top-nav">
                 <ul>
-                    <button class="btn-nav">HOME</button> <!-- Fala a historia do jogo -->
-                    <button class="divisions">I</button> <!-- Fala a historia do jogo -->
-                    <button class="btn-nav">O JOGO</button> <!-- Fala como jogar -->
-                    <button class="divisions">I</button> <!-- Breve apresentação de quem somos -->
-                    <button class="btn-nav">COMO JOGAR</button> <!-- Breve apresentação de quem somos -->
-                    <button class="divisions">I</button> <!-- Breve apresentação de quem somos -->
-                    <button class="btn-nav">QUEM SOMOS</button> <!-- Breve apresentação de quem somos -->
-                    <button class="divisions">I</button> <!-- Breve apresentação de quem somos -->
-                    <button class="btn-nav">GALERIA</button> <!-- Breve apresentação de quem somos -->
-                    <button class="divisions">I</button> <!-- Breve apresentação de quem somos -->
-                    <button class="btn-nav">DEV LOG</button> <!-- Breve apresentação de quem somos -->
+                    <a class="espaco"></a>
+                    <a href="#home" class="btn-nav">HOME</a> <!-- Fala a historia do jogo -->
+                    <a class="divisions">I</a> <!-- Fala a historia do jogo -->
+                    <a href="#o-jogo" class="btn-nav">O JOGO</a> <!-- Fala como jogar -->
+                    <a class="divisions">I</a> <!-- Breve apresentação de quem somos -->
+                    <a href="#como-jogar" class="btn-nav">COMO JOGAR</a> <!-- Breve apresentação de quem somos -->
+                    <a class="divisions">I</a> <!-- Breve apresentação de quem somos -->
+                    <a href="#quem-somos" class="btn-nav">QUEM SOMOS</a> <!-- Breve apresentação de quem somos -->
+                    <a class="divisions">I</a> <!-- Breve apresentação de quem somos -->
+                    <a href="#galeria" class="btn-nav">GALERIA</a> <!-- Breve apresentação de quem somos -->
+                    <a class="divisions">I</a> <!-- Breve apresentação de quem somos -->
+                    <a href="#dev-log" class="btn-nav">DEV LOG</a> <!-- Breve apresentação de quem somos -->
                     
                 </ul>
-                <button class="btn-nav">JOGAR</button>
+                <a href="#download" class="btn-nav">JOGAR</a>
             </nav>
             <div class="home-holder">
-                <img src="/assets/images/site_images/image 1.jpg" class="images-home">
-                <img src="/assets/images/site_images/image 2.jpg" class="images-home">
-                <img src="/assets/images/site_images/image 3.jpg" class="images-home">
+                <img src="/assets/images/site_images/image_1.jpg" class="images-home">
+                <img src="/assets/images/site_images/image_2.jpg" class="images-home">
+                <img src="/assets/images/site_images/image_3.jpg" class="images-home">
                 <h1>GENIUS HEIST</h1>
                 <p class="texto-apresentacao">Já pensou o quão emocionante deve ser roubar um banco?<br>
                     Gosta de resolver puzzles e brain teasers?<br>
@@ -40,29 +41,95 @@
         </div>
         <div class="black-box">.</div>
     </header>
-    <section>
-        <h2>Como jogar</h2>
-        <p>
-            Nesse jogo, ao apertar uma tecla de movimento, os personagens andam até se colidirem
-            com algum objeto. Seu objetivo é roubar o tesouro antes dos alarmes do banco tocarem e
-            sem ser visto por nenhuma câmera de segurança. Para isso, os jogadores terão que se colidir 
-            com as cameras por fora de seu campo de visao, quebrando-as as. O jogo exige que os jogadores
-            trabalhem juntos para chegarem no tesouro. 
-        </p>
-        <p>
-            <h3>
-                Controles:
-            </h3>
-            O personagem vermelho é controlado pelas teclas W, A, S e D.<br>
-            O personagem azul é controlado pelas setas do teclado.
-        </p>
-    </section>
-    <section>
-        <h2>Quem somos</h2>
-        <p>
-            Somos uma dupla de alunos de Ciencia da Computacao no Insper que está desenvolvendo um jogo para a disciplina de 
-            programacao. O jogo foi desenvolvido em Python, utilizando a biblioteca Pygame. O objetivo desse projeto
-            é adiquirir conheciento e proficiência na linguagem, possibilitando um amadurecimento operacional aos alunos 
-        </p>
+    <div class="structure-background">
+        <div class="structure">
+            <div class="topico-guia">
+                <h2 id="o-jogo">O Jogo</h2>
+                <p>
+                    Este é um jogo de puzzles onde você e seu parceiro devem buscar juntar o maior valor de tesouros
+                    possiveis sem serem vistos, para tal devem utilizar bem o cenario tal como um ao outro para poderem
+                    assim eliminar seus oponentes sem serem vistos e abrirem caminho para seu tesouro.
+                    <br><br>
+                    Feito em Pygame por João Sarti e Gustavo Cruz da segunda turma de Ciência da Computação do Insper, 
+                    em seu primeiro semestre como trabalho avaliativo.
+                </p>
+            </div>
+            <div class="splitter">
+                <div class="topico-guia">
+                    <h2 id="como-jogar">Como jogar</h2>
+                    <p>
+                        Nesse jogo, ao apertar uma tecla de movimento, os personagens andam até se colidirem
+                        com algum objeto, sem pausa. Seu objetivo é roubar o tesouro antes dos alarmes do banco tocarem e
+                        sem ser visto por nenhuma câmera de segurança. Para isso, os jogadores terão que destruir as cameras, 
+                        colidindo com as cameras por fora de seu campo de visao, quebrando-as as. O jogo exige que os jogadores
+                        trabalhem juntos para chegarem no tesouro e elimar seus inimigos sem serem vistos. 
+                        <br><br>
+                        Para jogar o jogo, basta entrar no link de download para baixar o zip do jogo no GitHub, após isso caso não tenha baixado sera necessario baixar o Python e o Pygame em seu computador, após isso basta executar o jogo. Para acessar os links de download, clique em "jogar" acima ou siga descendo a pagina. 
+                    </p>
+                </div>
+                <div class="splitted"
+                    <p>
+                        <h3>
+                            Controles:
+                        </h3>
+                        <div class="inside-splitted">
+                            O personagem vermelho é controlado pelas teclas: <br>
+                            W(up)<br>
+                            A(left)<br>
+                            S(down)<br>
+                            D(right)<br><br>
+                            O personagem azul é controlado pelas setas do teclado,<br>
+                            seguindo a mesma lógica.
+                            <img src="/assets/images/site_images/image_tutorial.png" alt="Foto do tutorial do jogo, com os comandos" class="image-tutorial">
+                        </div>
+                    </p>
+                </div>
+            </div>
+            <div class="topico-guia">
+                <h2 id="quem-somos">Quem somos</h2>
+                <p>
+                    Somos uma dupla de alunos de Ciencia da Computacao no Insper que está desenvolvendo um jogo para a disciplina de 
+                    programacao de Dev Life. O jogo foi desenvolvido em Python, utilizando a biblioteca Pygame. O objetivo desse projeto
+                    é adiquirir conheciento e proficiência na linguagem, possibilitando um amadurecimento operacional aos alunos,
+                    os quais se aperfeicoariam tanto em dev web (html + css) quanto em python ao decorrer do projeto.
+                </p>
+                <br><br><br>
+            </div>
+            <div class="topico-guia">
+                <h2 id="galeria">Galeria</h2>
+                <div class="galeria">
+                    <img src="/assets/images/site_images/image_menu.png" alt="Foto do menu do jogo" class="foto-galeria">
+                    <img src="/assets/images/site_images/image_game.png" alt="Foto do menu do jogo" class="foto-galeria">
+                    <img src="/assets/images/site_images/image_game.png" alt="Foto do menu do jogo" class="foto-galeria">
+                    <img src="/assets/images/site_images/image_game.png" alt="Foto do menu do jogo" class="foto-galeria">
+                    <img src="/assets/images/site_images/image_game.png" alt="Foto do menu do jogo" class="foto-galeria">
+                    <img src="/assets/images/site_images/image_game.png" alt="Foto do menu do jogo" class="foto-galeria">
+                </div>
+            </div>
+            <div class="centralizador">
+                <div class="topico-guia" id="dev-log">
+                    <h2>DEV LOG</h2>
+                    <h5>18/04/2023</h5>
+                    <p>Inicio do projeto e idealização do jogo.</p>
+                    <h5>19/04/2023</h5>
+                    <p>Inicio do HTML e criação de sprites.</p>
+                    <h5>22/04/2023</h5>
+                    <p>Conclusao de todos os sprites basicos e HTML.</p>
+                    <h5>24/04/2023</h5>
+                    <p>Versão inicial da webpage.</p>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="centralizador" id="download">
+                <a href="https://github.com/insper-classroom/devlife-23-1-projeto-pygame-gustavoc_sarti">
+                    <img  src="/assets/images/site_images/download-button.png" alt="Botão de download">
+                </a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
