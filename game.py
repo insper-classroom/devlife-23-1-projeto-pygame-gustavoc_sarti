@@ -21,12 +21,12 @@ class Game:
 
     def desenha(self):
         self.window.fill((0, 0, 0))                
-        self.player.draw(self.window, self.pos)
+        self.player.draw(self.window, (4,4))
         pygame.display.update()
 
     def start(self):
         while self.atualiza_estado():
-            self.desenha(self.assets, self.state)
+            self.desenha()
 
     # def map(self):
     #     for line_index, line in enumerate(MAP):
