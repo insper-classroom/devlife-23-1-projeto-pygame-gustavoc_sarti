@@ -7,6 +7,7 @@ class Direction(Enum):
     DOWN = 1
     LEFT = 2
     RIGHT = 3
+    STOP = 4
 
 
 class Player:
@@ -20,3 +21,13 @@ class Player:
     
     def draw(self, window):
         window.blit(self.image, self.retangulo)
+
+    def move(self, direction):
+        if self.direction == Direction.DOWN and self.retangulo.bottom > self.bounds.bottom:
+            self.direction = direction
+        elif self.direction == Direction.UP and self.retangulo.top < self.bounds.top:
+            self.direction = direction
+        elif self.direction == Direction.LEFT and self.retangulo.left > self.bounds.left:
+            self.direction = direction
+        elif self.direction == Direction.RIGHT and self.retangulo.right < self.bounds.right:
+            self.direction = direction
