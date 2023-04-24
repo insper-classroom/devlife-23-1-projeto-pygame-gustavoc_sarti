@@ -3,9 +3,9 @@ import pygame as pyg
 class Player:
     
     def __init__(self, pos, objects):
-        player = pyg.image.load('assets/pixil/player_01.pixil')
+        player = pyg.image.load('assets/images/players/player_01-pre_dash.png')
         self.image = pyg.transform.scale(player, (50, 50))
-        self.rect = self.image.get_rect(origin = pos) #posicao sera igual ao ponto de origem do retangulo
+        self.rect = self.image.get_rect() #posicao sera igual ao ponto de origem do retangulo
         
         self.direction = pyg.math.Vector2(0, 0)
         self.speed = 30
