@@ -5,12 +5,14 @@ from sprites.player import *
 class Game:
     def __init__(self):
         pygame.init()
-        self.window = pygame.display.set_mode((1024, 720), vsync=True, flags=pygame.SCALED)
-        pygame.display.set_caption('')
-        #Cria dicionario de assets para serem utilizados
-        player = pygame.image.load('assets/images/square.png')
+        bounds = (1024, 720)
+        self.window = pygame.display.set_mode(bounds)
+        pygame.display.set_caption('Genius Heist')
+        self.player = Player(pygame.Rect(4, 4, bounds[0], bounds[1]))
+
+
         self.assets = {
-            'player': pygame.transform.scale(player, (50, 50))
+            # 'player': pygame.transform.scale(player, (50, 50))
         }
         
         #Cria dicionario de state(infos diversas) a serem utilizados
@@ -28,7 +30,7 @@ class Game:
     #Método responsavel por mostrar o jogo atualizado
     def desenha(self, assets, state):
         self.window.fill((0, 0, 0))                
-        self.window.blit(assets['player'], (100, 100)) 
+        self.player.draw(self.window, self.pos)
         pygame.display.update()
         
     #Método responsavel por rodar o jogo ate ele ser encerrado

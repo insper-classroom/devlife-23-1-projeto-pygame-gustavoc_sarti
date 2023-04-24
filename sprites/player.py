@@ -1,33 +1,36 @@
-import pygame
-from enum import Enum
-
-
-class Direction(Enum):
-    UP = 0
-    DOWN = 1
-    LEFT = 2
-    RIGHT = 3
-    STOP = 4
-
+import pygame as pyg
 
 class Player:
-    direction = None
-    speed = 0 
-    bounds = None
 
-    def __init__(self, bounds):
-        self.bounds = bounds
-        self.retangulo = self.image.get_rect()
-    
-    def draw(self, window):
-        window.blit(self.image, self.retangulo)
+    def __init__(self, pos, objects):
+        player = pyg.image.load('assets/pixil/player_01.pixil')
+        self.image = pyg.transform.scale(player, (50, 50))
+        self.rect = self.image.get_rect(origin = pos) #posicao sera igual ao ponto de origem do retangulo
+        
+        self.direction = pyg.math.Vector2(0, 0)
+        self.speed = 30
+        self.objects = objects
 
-    def move(self, direction):
-        if self.direction == Direction.DOWN and self.retangulo.bottom > self.bounds.bottom:
-            self.direction = direction
-        elif self.direction == Direction.UP and self.retangulo.top < self.bounds.top:
-            self.direction = direction
-        elif self.direction == Direction.LEFT and self.retangulo.left > self.bounds.left:
-            self.direction = direction
-        elif self.direction == Direction.RIGHT and self.retangulo.right < self.bounds.right:
-            self.direction = direction
+    def move(self):
+        keys = pyg.key.get_pressed()
+        if keys[pyg.K_UP]:
+            self.direction.y = -1
+        elif keys[pyg.K_DOWN]:
+            self.direction.y = 1
+
+        if keys[pyg.K_LEFT]:
+            self.direction.x = -1
+        elif keys[pyg.K_RIGHT]:
+            self.direction = 1
+        
+        self.rect.move_ip(self.rect.x + self.direction.x * self.speed,
+                          self.rect.y + self.direction.y * self.speed)
+        
+    def collision(self):
+        for obj in self.objects:
+            if self.rect.colliderect(self.rect):
+                self.rect.move_ip(self.rect.x - self.direction.x * self.speed,
+                                  self.rect.y - self.direction.y * self.speed)
+
+    def draw(self):
+        self.move(self.speed)
