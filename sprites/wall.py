@@ -1,7 +1,9 @@
 import pygame
 
-class Wall:
-    def __init__(self):
-        pygame.image.load('assets/images/hexagon.png')
-        self.rect = self.image.get_rect()
+class Wall(pygame.sprite.Sprite):
+    def __init__(self, position, group):
+
+        super().__init__(group)
+        self.image = pygame.image.load('assets/images/hexagon.png')
+        self.rect = self.image.get_rect(topleft=position)
     
