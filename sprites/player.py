@@ -6,7 +6,7 @@ class Player(pyg.sprite.Sprite):
 
         super().__init__(group)
         player = pyg.image.load('assets/images/players/player_01-pre_dash.png')
-        self.image = pyg.transform.scale(player, (100, 100))
+        self.image = pyg.transform.scale(player, (169, 169))
         self.rect = self.image.get_rect(topleft = position) #posicao sera igual ao ponto de origem do retangulo
         
         self.direction = pyg.math.Vector2(0, 0)
