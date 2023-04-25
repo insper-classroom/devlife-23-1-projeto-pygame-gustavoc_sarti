@@ -11,3 +11,6 @@ Lembre-se de colocar algumas imagens do jogo no seu README.
 Além disso, a página do jogo deve ser feita dentro da pasta `docs`.
 
 APAGUE ESSE CONTEÚDO E SUBSTITUA PELO SEU PRÓPRIO README!
+
+Todos os sons foram retirados de uma biblioteca gratuita e sem copyrights do site freesound.org, então alterados em um editor de som para combinarem melhor com o jogo.
+Musica principal de fundo: "Lakey Inspired - Feeling Good pt. 2"
