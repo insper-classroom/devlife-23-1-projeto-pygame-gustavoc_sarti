@@ -41,12 +41,12 @@ class Player(pyg.sprite.Sprite):
 
     def collision(self, walls):
         self.rect.move_ip(self.direction[0] * self.speed, self.direction[1] * self.speed)
-        for wall in walls:
-            if self.rect.colliderect(wall.rect):
-                self.rect.move_ip(-self.direction[0] * self.speed, -self.direction[1] * self.speed)
-                self.direction = [0, 0]
-                self.state['moving'] = False
-                return True
+        collide_walls = pyg.sprite.spritecollide(self, walls, False)
+        for collide in collide_walls:
+            self.rect.move_ip(-self.direction[0] * self.speed, -self.direction[1] * self.speed)
+            self.direction = [0, 0]
+            self.state['moving'] = False
+            return True
         return False
 
 
