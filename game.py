@@ -1,7 +1,7 @@
 import pygame
 from sprites.player import *
 from config import *
-from sprites.wall import Wall
+from map_content import Wall
 
 
 class Game:
@@ -30,6 +30,7 @@ class Game:
                     Wall((x, y), self.sprites)
                 if column == 'p':
                     self.player = Player((x, y), self.sprites)
+                    
 
     def desenha(self):         
         self.sprites.draw(self.window)           
