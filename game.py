@@ -33,6 +33,7 @@ class Game:
                 if column == ' ':
                     Floor((x, y), self.sprites)
                 if column == 'p':
+                    Floor((x, y), self.sprites)
                     self.player = Player((x, y), self.sprites)
 
     def desenha(self):         
@@ -41,4 +42,5 @@ class Game:
         
     def start(self):
         while self.atualiza_estado():
+            self.player.move()
             self.desenha()
