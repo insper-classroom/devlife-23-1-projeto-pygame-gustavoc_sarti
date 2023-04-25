@@ -24,17 +24,16 @@ class Game:
     def mapa(self):
         for line_index, line in enumerate(MAP):
             for column_index, column in enumerate(line):
+                x = column_index * WALL_GAP 
+                y = line_index  * WALL_GAP
                 if column == 'X':
-                    Wall((column_index, line_index), self.sprites)
+                    Wall((x, y), self.sprites)
                 if column == 'p':
-                    self.player = Player((column_index, line_index), self.sprites)
+                    self.player = Player((x, y), self.sprites)
 
-    def desenha(self):
-        # self.window.fill((0, 0, 0))
-         
+    def desenha(self):         
         self.sprites.draw(self.window)           
         pygame.display.update()  
-        # self.player.draw()
         
 
     def start(self):
