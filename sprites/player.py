@@ -33,6 +33,7 @@ class Player(pyg.sprite.Sprite):
         
         self.rect.move_ip(self.direction[0] * self.speed, self.direction[1] * self.speed)
 
+    
 
     def draw(self):
         self.move()
