@@ -30,8 +30,8 @@ class Game:
                     Wall((x, y), self.sprites)
                 if column == 'S':
                     SideWall((x, y), self.sprites)
-                # if column == ' ':
-                #     Floor((x, y), self.sprites)
+                if column == ' ':
+                    Floor((x, y), self.sprites)
                 if column == 'p':
                     self.player = Player((x, y), self.sprites)
 
