@@ -8,7 +8,7 @@ class Player(pyg.sprite.Sprite):
         player = pyg.image.load('assets/images/players/player_01-pre_dash.png')
         self.velx = 0
         self.vely = 0
-        self.image = pyg.transform.scale(player, (169, 169)).convert_alpha()
+        self.image = pyg.transform.scale(player, (50, 70)).convert_alpha()
         self.rect = self.image.get_rect(topleft = position) #posicao sera igual ao ponto de origem do retangulo
         self.state = {
             'moving' : False,
