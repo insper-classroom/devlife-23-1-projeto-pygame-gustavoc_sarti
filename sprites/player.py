@@ -20,21 +20,27 @@ class Player(pyg.sprite.Sprite):
 
     def move(self, walls):
         keys = pyg.key.get_pressed()
-        if self.state['moving'] == False:
+        if not self.state['moving']:
             if keys[pyg.K_UP]:
                 self.direction[1] = -1
             elif keys[pyg.K_DOWN]:
                 self.direction[1] = 1
-
-            if keys[pyg.K_LEFT]:
+            elif keys[pyg.K_LEFT]:
                 self.direction[0] = -1
             elif keys[pyg.K_RIGHT]:
                 self.direction[0] = 1
 
+        if any(self.direction): #sugestao do chat gpt
+            self.state['moving'] = True
+
         if not self.collision(walls):
             self.rect.move_ip(self.direction[0] * self.speed, self.direction[1] * self.speed)
+        else:
+            self.direction = [0, 0]
+            self.state['moving'] = False
 
     def collision(self, walls):
+        self.rect.move_ip(self.direction[0] * self.speed, self.direction[1] * self.speed)
         for wall in walls:
             if self.rect.colliderect(wall.rect):
                 self.rect.move_ip(-self.direction[0] * self.speed, -self.direction[1] * self.speed)
