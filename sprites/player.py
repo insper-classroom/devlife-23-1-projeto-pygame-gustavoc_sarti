@@ -18,7 +18,7 @@ class Player(pyg.sprite.Sprite):
         self.speed = 30
         
 
-    def move(self):
+    def move(self, walls):
         keys = pyg.key.get_pressed()
         if self.state['moving'] == False:
             if keys[pyg.K_UP]:
@@ -30,10 +30,19 @@ class Player(pyg.sprite.Sprite):
                 self.direction[0] = -1
             elif keys[pyg.K_RIGHT]:
                 self.direction[0] = 1
-        
-        self.rect.move_ip(self.direction[0] * self.speed, self.direction[1] * self.speed)
 
-    
+        if not self.collision(walls):
+            self.rect.move_ip(self.direction[0] * self.speed, self.direction[1] * self.speed)
+
+    def collision(self, walls):
+        for wall in walls:
+            if self.rect.colliderect(wall.rect):
+                self.rect.move_ip(-self.direction[0] * self.speed, -self.direction[1] * self.speed)
+                self.direction = [0, 0]
+                self.state['moving'] = False
+                return True
+        return False
+
 
     def draw(self):
         self.move()

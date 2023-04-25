@@ -46,5 +46,5 @@ class Game:
         
     def start(self):
         while self.atualiza_estado():
-            self.player.move()
+            self.player.move(self.walls)
             self.desenha()
