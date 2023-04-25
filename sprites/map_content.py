@@ -1,5 +1,6 @@
 import pygame
 from config import * 
+
 class SideWall(pygame.sprite.Sprite):
     def __init__(self, position, group):
         super().__init__(group)
