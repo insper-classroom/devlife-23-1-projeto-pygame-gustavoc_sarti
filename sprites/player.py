@@ -26,10 +26,11 @@ class Player(pyg.sprite.Sprite):
                 self.direction[0] = -1
             elif keys[pyg.K_RIGHT]:
                 self.direction[0] = 1
-    
+
+# chat GPT sugeriu a ideia do old_rect    
         if any(self.direction):
             self.state['moving'] = True
-    
+
         old_rect = self.rect.copy()
         self.rect.move_ip(self.direction[0] * self.speed, self.direction[1] * self.speed)
     
@@ -39,7 +40,7 @@ class Player(pyg.sprite.Sprite):
             self.direction = [0, 0]
             self.state['moving'] = False
             break
-
+# ate aqui
 
     def collision(self, walls):
         self.rect.move_ip(self.direction[0] * self.speed, self.direction[1] * self.speed)
