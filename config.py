@@ -2,7 +2,6 @@ SCREEN_HEIGHT = 726
 SCREEN_WIDTH = 1020
 
 WALL_GAP = 25
-WALLS = []
 
 MAP = [
     ['X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'],
