@@ -4,7 +4,7 @@ from config import *
 from sprites.map_content import *
 
 class Game:
-
+    
     def __init__(self):
         
         pygame.init()
