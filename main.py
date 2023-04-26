@@ -1,4 +1,5 @@
 import game
+import menu
 
-game = game.Game()
-game.start()
+menu = menu.Menu()
+menu.start()
