@@ -7,12 +7,12 @@ class Player1(pyg.sprite.Sprite):
         super().__init__(group)
         player = pyg.image.load('assets/images/players/player_01-pre_dash.png')
         self.image = pyg.transform.scale(player, (30, 50)).convert_alpha()
-        self.rect = self.image.get_rect(center = position) #posicao sera igual ao ponto de origem do retangulo
+        self.rect = self.image.get_rect(topleft = position) #posicao sera igual ao ponto de origem do retangulo
         self.state = {
             'moving' : False,
         }
         self.direction = [0, 0]
-        self.speed = 22
+        self.speed = 10
         
 
     def move(self, walls):
@@ -44,10 +44,8 @@ class Player1(pyg.sprite.Sprite):
 
     def collision(self, walls):
         self.rect.move_ip(self.direction[0] * self.speed, self.direction[1] * self.speed)
-        print('player position:', self.rect.center)
         collide_walls = pyg.sprite.spritecollide(self, walls, False)
         for collide in collide_walls:
-            print('wall position:', collide.rect.center)
             self.rect.move_ip(-self.direction[0] * self.speed, -self.direction[1] * self.speed)
             self.direction = [0, 0]
             self.state['moving'] = False
@@ -55,8 +53,7 @@ class Player1(pyg.sprite.Sprite):
         return False
 
 
-    def draw(self):
-        self.move()
+
 
 
 class Player2(pyg.sprite.Sprite):
@@ -66,12 +63,12 @@ class Player2(pyg.sprite.Sprite):
         super().__init__(group)
         player = pyg.image.load('assets/images/players/player_02-pre_dash.png')
         self.image = pyg.transform.scale(player, (30, 50)).convert_alpha()
-        self.rect = self.image.get_rect(center = position) #posicao sera igual ao ponto de origem do retangulo
+        self.rect = self.image.get_rect(topleft = position) #posicao sera igual ao ponto de origem do retangulo
         self.state = {
             'moving' : False,
         }
         self.direction = [0, 0]
-        self.speed = 22
+        self.speed = 10
         
 
     def move(self, walls):
@@ -103,10 +100,10 @@ class Player2(pyg.sprite.Sprite):
 
     def collision(self, walls):
         self.rect.move_ip(self.direction[0] * self.speed, self.direction[1] * self.speed)
-        print('player position:', self.rect.center)
+        print('player position:', self.rect.topleft)
         collide_walls = pyg.sprite.spritecollide(self, walls, False)
         for collide in collide_walls:
-            print('wall position:', collide.rect.center)
+            print('wall position:', collide.rect.topleft)
             self.rect.move_ip(-self.direction[0] * self.speed, -self.direction[1] * self.speed)
             self.direction = [0, 0]
             self.state['moving'] = False

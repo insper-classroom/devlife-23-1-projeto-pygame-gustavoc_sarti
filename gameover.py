@@ -55,7 +55,6 @@ class Gameover:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if self.clique_jogar_novamente():
                     self.reset = True
-                    
                 if self.clique_sair():
                     pygame.quit()
                     exit()
