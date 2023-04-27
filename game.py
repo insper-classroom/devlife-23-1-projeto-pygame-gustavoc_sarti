@@ -11,11 +11,18 @@ class Timer:
 
     def time(self):
         self.start -= 1
-        print(self.start)
         if self.start <= 0:
             return False
         return True
+    #GPT    
+    def get_time_string(self):
+        remaining_time = max(0, self.start)
+        minutes = remaining_time // 6000
+        seconds = (remaining_time // 100) % 60
+        milliseconds = remaining_time % 100
+        return f"Time: {minutes:02d}:{seconds:02d}:{milliseconds:02d}"
 
+    #----
 
 class Game:
     def __init__(self):
@@ -59,7 +66,14 @@ class Game:
         self.window.fill((30,30,65))
         self.walls.draw(self.window)
         self.sprites.draw(self.window)
-        self.players.draw(self.window)         
+        self.players.draw(self.window)
+        #GPT + stackoverflow
+        time_text = self.timer.get_time_string()
+        font = pygame.font.Font(None, 36)
+        time_text = self.timer.get_time_string()
+        text = font.render(time_text, True, (255, 255, 255))
+        self.window.blit(text, (10, 10))
+        #-------------------
         pygame.display.update()  
         
     def start(self):
