@@ -7,7 +7,7 @@ import gameover
 class Timer:
     def __init__(self):
         self.clock = pygame.time.Clock()
-        self.start = 6000
+        self.start = 3000
         self.clock.tick(100)
 
     def time(self):
@@ -15,14 +15,13 @@ class Timer:
         if self.start <= 0:
             return False
         return True
-    #GPT    
+    #GPT
     def get_time_string(self):
         remaining_time = max(0, self.start)
         minutes = remaining_time // 6000
         seconds = (remaining_time // 100) % 60
         milliseconds = remaining_time % 100
         return f"Time: {minutes:02d}:{seconds:02d}:{milliseconds:02d}"
-
     #----
 
 class Game:
@@ -41,7 +40,8 @@ class Game:
     def atualiza_estado(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return False
+                pygame.quit()
+                exit()
         return True
     
     def mapa(self):
@@ -70,17 +70,24 @@ class Game:
         self.sprites.draw(self.window)
         self.players.draw(self.window)
         #GPT + stackoverflow
+        self.timer.clock.tick(100)
         time_text = self.timer.get_time_string()
         font = pygame.font.Font(None, 36)
-        time_text = self.timer.get_time_string()
         text = font.render(time_text, True, (255, 255, 255))
         self.window.blit(text, (10, 10))
         #-------------------
         pygame.display.update()  
         
     def start(self):
-        while self.atualiza_estado() and self.timer.time():
-            self.player1.move(self.walls)
-            self.player2.move(self.walls)
-            self.desenha()
-        self.gameover.start()
+        while self.atualiza_estado():
+            if self.gameover.reset:
+                self.timer = Timer()
+                self.gameover.reset = False
+            if self.timer.time():
+                self.player1.move(self.walls)
+                self.player2.move(self.walls)
+                self.desenha()
+            else:
+                self.gameover.desenha_gameover()
+                self.gameover.atualiza_estado()
+    
