@@ -7,7 +7,7 @@ import gameover
 class Timer:
     def __init__(self):
         self.clock = pygame.time.Clock()
-        self.start = 3000
+        self.start = 1000
         self.clock.tick(100)
 
     def time(self):
@@ -82,6 +82,11 @@ class Game:
         while self.atualiza_estado():
             if self.gameover.reset:
                 self.timer = Timer()
+                self.timer.start = 3000
+                self.players.empty()
+                self.walls.empty()
+                self.sprites.empty()
+                self.mapa()
                 self.gameover.reset = False
             if self.timer.time():
                 self.player1.move(self.walls)
