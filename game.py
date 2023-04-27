@@ -6,8 +6,6 @@ from sprites.map_content import *
 class Game:
     
     def __init__(self):
-        
-        pygame.init()
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         pygame.display.set_caption('Genius Heist')
 
@@ -39,6 +37,7 @@ class Game:
                     self.player = Player((x, y), self.players)
 
     def desenha(self):
+        self.window.fill((30,30,65))
         self.walls.draw(self.window)
         self.sprites.draw(self.window)
         self.players.draw(self.window)         
