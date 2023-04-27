@@ -1,6 +1,7 @@
 from config import *
 import game
 import pygame
+
 class Menu:
     #Inicializa os elementos graficos do menu.
     def __init__(self,):
@@ -81,7 +82,6 @@ class Menu:
                     return False
                 if self.clique_sair():
                     return False
-                
         return True
 
     #Função principal que inicia o jogo todo a partir do menu.

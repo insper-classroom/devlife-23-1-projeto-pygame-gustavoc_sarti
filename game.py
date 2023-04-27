@@ -2,6 +2,7 @@ import pygame
 from sprites.player import *
 from config import *
 from sprites.map_content import *
+import gameover
 
 class Timer:
     def __init__(self):
@@ -29,6 +30,7 @@ class Game:
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         pygame.display.set_caption('Genius Heist')
 
+        self.gameover = gameover.Gameover()
         self.players = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
         self.sprites = pygame.sprite.Group()
@@ -81,3 +83,4 @@ class Game:
             self.player1.move(self.walls)
             self.player2.move(self.walls)
             self.desenha()
+        self.gameover.start()
