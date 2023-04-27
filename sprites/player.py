@@ -113,6 +113,5 @@ class Player2(pyg.sprite.Sprite):
             return True
         return False
 
-
     def draw(self):
         self.move()
