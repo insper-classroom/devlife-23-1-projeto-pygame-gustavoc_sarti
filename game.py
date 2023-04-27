@@ -3,8 +3,21 @@ from sprites.player import *
 from config import *
 from sprites.map_content import *
 
+class Timer:
+    def __init__(self):
+        self.clock = pygame.time.Clock()
+        self.start = 6000
+        self.clock.tick(100)
+
+    def time(self):
+        self.start -= 1
+        print(self.start)
+        if self.start <= 0:
+            return False
+        return True
+
+
 class Game:
-    
     def __init__(self):
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         pygame.display.set_caption('Genius Heist')
@@ -14,6 +27,7 @@ class Game:
         self.sprites = pygame.sprite.Group()
         self.map = MAP
         self.mapa()
+        self.timer = Timer()
 
     def atualiza_estado(self):
         for event in pygame.event.get():
@@ -49,7 +63,7 @@ class Game:
         pygame.display.update()  
         
     def start(self):
-        while self.atualiza_estado():
+        while self.atualiza_estado() and self.timer.time():
             self.player1.move(self.walls)
             self.player2.move(self.walls)
             self.desenha()

@@ -26,7 +26,6 @@ class Menu:
 
     def desenha_menu(self):
         self.window.blit(self.background,(0,0))
-
         self.window.blit(self.titulo,(350,100))
         for botoes in range(len(self.botoes)):
             botao = self.fonte.render(f'{self.botoes[botoes]}', True, (255,255,255))
