@@ -53,9 +53,6 @@ class Player1(pyg.sprite.Sprite):
         return False
 
 
-
-
-
 class Player2(pyg.sprite.Sprite):
     
     def __init__(self, position, group):
@@ -109,6 +106,3 @@ class Player2(pyg.sprite.Sprite):
             self.state['moving'] = False
             return True
         return False
-
-    def draw(self):
-        self.move()
