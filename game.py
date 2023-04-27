@@ -82,6 +82,11 @@ class Game:
         while self.atualiza_estado():
             if self.gameover.reset:
                 self.timer = Timer()
+                self.timer.start = 3000
+                self.players.empty()
+                self.walls.empty()
+                self.sprites.empty()
+                self.mapa()
                 self.gameover.reset = False
             if self.timer.time():
                 self.player1.move(self.walls)
