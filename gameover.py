@@ -1,14 +1,15 @@
 from config import *
 import pygame
 
+
 class Gameover:
     def __init__(self):
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         pygame.display.set_caption('Genius Heist - Game Over')
 
+        self.reset = False
         self.button = pygame.image.load('assets/images/menu/button_unselected.jpg')
         self.button = pygame.transform.scale(self.button, (240, 80))
-
         self.botoes = ['jogar novamente','sair']
         self.fonte_padrao = pygame.font.get_default_font()
         self.fonte = pygame.font.Font(self.fonte_padrao, 45)
@@ -53,12 +54,16 @@ class Gameover:
                 exit()
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if self.clique_jogar_novamente():
-                    self.game.start()
+                    self.reset = True
+                    
                 if self.clique_sair():
                     pygame.quit()
                     exit()
         return True
 
     def start(self):
-         while self.atualiza_estado():
-              self.desenha_gameover()
+        while self.atualiza_estado():
+            self.desenha_gameover()
+
+        
+        

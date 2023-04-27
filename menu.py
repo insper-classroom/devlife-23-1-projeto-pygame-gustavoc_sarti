@@ -1,6 +1,7 @@
 from config import *
 import game
 import pygame
+import gameover
 
 class Menu:
     #Inicializa os elementos graficos do menu.
@@ -8,6 +9,7 @@ class Menu:
         #Inicialização basica
         pygame.init()
         self.game = game.Game()
+        self.gameover = gameover.Gameover()
         pygame.display.set_caption("Menu")
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
@@ -77,6 +79,9 @@ class Menu:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.clique_jogar():
                     self.game.start()
+                    self.gameover.start()
+                    
+
                     return False
                 if self.clique_tutorial():
                     return False

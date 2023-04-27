@@ -7,7 +7,7 @@ import gameover
 class Timer:
     def __init__(self):
         self.clock = pygame.time.Clock()
-        self.start = 6000
+        self.start = 600
         self.clock.tick(100)
 
     def time(self):
@@ -79,8 +79,16 @@ class Game:
         pygame.display.update()  
         
     def start(self):
-        while self.atualiza_estado() and self.timer.time():
-            self.player1.move(self.walls)
-            self.player2.move(self.walls)
-            self.desenha()
-        self.gameover.start()
+        while self.atualiza_estado():
+            if self.gameover.reset:
+                self.timer = Timer()
+                self.gameover.reset = False
+            if self.timer.time():
+                self.player1.move(self.walls)
+                self.player2.move(self.walls)
+                self.desenha()
+            else:
+                self.gameover.desenha_gameover()
+                self.gameover.atualiza_estado()
+    
+    
