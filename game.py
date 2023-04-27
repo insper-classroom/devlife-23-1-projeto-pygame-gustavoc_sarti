@@ -32,9 +32,12 @@ class Game:
                     SideWall((x, y), self.walls)
                 if column == ' ':
                     Floor((x, y), self.sprites)
-                if column == 'p':
+                if column == '1':
                     Floor((x, y), self.sprites)
-                    self.player = Player((x, y), self.players)
+                    self.player1 = Player1((x, y), self.players)
+                if column == '2':
+                    Floor((x, y), self.sprites)
+                    self.player2 = Player2((x, y), self.players)
 
     def desenha(self):
         self.window.fill((30,30,65))
@@ -45,5 +48,6 @@ class Game:
         
     def start(self):
         while self.atualiza_estado():
-            self.player.move(self.walls)
+            self.player1.move(self.walls)
+            self.player2.move(self.walls)
             self.desenha()

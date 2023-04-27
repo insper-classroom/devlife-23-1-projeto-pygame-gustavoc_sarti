@@ -1,4 +1,4 @@
-import game
+
 import menu
 
 menu = menu.Menu()
