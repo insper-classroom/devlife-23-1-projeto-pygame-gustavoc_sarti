@@ -18,8 +18,10 @@ class Menu:
         self.button = pygame.transform.scale(self.button, (240, 80))
 
         #Configura a imagem de fundo
-        self.background = pygame.image.load('assets/images/menu/bank-pygame.jpeg')
-        self.background = pygame.transform.scale(self.background,(1020,726))
+        background = pygame.image.load('assets/images/menu/bank-pygame.jpeg')
+        self.background = pygame.transform.scale(background,(1420,969))
+        
+
 
         #Configura texto dos botões
         self.botoes = ['jogar','tutorial','sair']
@@ -27,48 +29,61 @@ class Menu:
         self.fonte = pygame.font.Font(self.fonte_padrao, 45)
         self.titulo = self.fonte.render('GENIUS HEIST', True, (255,255,0))
 
-    def desenha_menu(self):
-        self.window.blit(self.background,(0,0))
-        self.window.blit(self.titulo,(350,100))
-        for botoes in range(len(self.botoes)):
-            botao = self.fonte.render(f'{self.botoes[botoes]}', True, (255,255,255))
-            self.window.blit(self.button,(390,300+(150*botoes)))
-            self.window.blit(botao,(430,320+(150*botoes)))
+    def desenha_menu(self): #usamos o Chat GPT para a centralizacao
+        self.window.blit(self.background, (0, 0))
+        self.window.blit(self.titulo, (350, 100))
+
+        button_width, button_height = self.button.get_size()
+        y_start = (SCREEN_HEIGHT - (len(self.botoes) * (button_height + 50))) // 2
+
+        for i, label in enumerate(self.botoes):
+            botao = self.fonte.render(label, True, (255, 255, 255))
+            text_width, text_height = botao.get_size()
+
+            x_button = (SCREEN_WIDTH - button_width) // 2
+            y_button = y_start + i * (button_height + 50)
+            x_text = (SCREEN_WIDTH - text_width) // 2
+            y_text = y_button + (button_height - text_height) // 2
+
+            self.window.blit(self.button, (x_button, y_button))
+            self.window.blit(botao, (x_text, y_text))
+    
         pygame.display.update()
 
     #Cria as funções que registram clicks nos botões da tela.
     def clique_jogar(self):
         if (
-            390 <= self.mouse_pos[0] and 
-            self.mouse_pos[0] <= 390 + 240 and
-            300 <= self.mouse_pos[1] and
-            self.mouse_pos[1] <= 300 + 80
+            (SCREEN_WIDTH - 240) // 2 <= self.mouse_pos[0] and 
+            self.mouse_pos[0] <= (SCREEN_WIDTH - 240) // 2 + 240 and
+            (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 <= self.mouse_pos[1] and
+            self.mouse_pos[1] <= (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 + 80
             ):
                 return True
         else:
-                return False
-        
+            return False
+    
     def clique_tutorial(self):
         if (
-            390 <= self.mouse_pos[0] and 
-            self.mouse_pos[0] <= 390 + 240 and
-            450 <= self.mouse_pos[1] and
-            self.mouse_pos[1] <= 450 + 80
+            (SCREEN_WIDTH - 240) // 2 <= self.mouse_pos[0] and 
+            self.mouse_pos[0] <= (SCREEN_WIDTH - 240) // 2 + 240 and
+            (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 + (80 + 50) <= self.mouse_pos[1] and
+            self.mouse_pos[1] <= (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 + 2 * (80 + 50)
             ):
                 return True
         else:
-                return False
+            return False
 
     def clique_sair(self):
         if (
-            390 <= self.mouse_pos[0] and 
-            self.mouse_pos[0] <= 390 + 240 and
-            600 <= self.mouse_pos[1] and
-            self.mouse_pos[1] <= 600 + 80
+            (SCREEN_WIDTH - 240) // 2 <= self.mouse_pos[0] and 
+            self.mouse_pos[0] <= (SCREEN_WIDTH - 240) // 2 + 240 and
+            (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 + 2 * (80 + 50) <= self.mouse_pos[1] and
+            self.mouse_pos[1] <= (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 + 3 * (80 + 50)
             ):
                 return True
         else:
-                return False
+            return False
+
 
     #Atualiza as informações do menu conforme o usuario interagir com a tela.
     def atualiza_estado_menu(self):
