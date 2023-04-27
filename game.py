@@ -3,8 +3,28 @@ from sprites.player import *
 from config import *
 from sprites.map_content import *
 
+class Timer:
+    def __init__(self):
+        self.clock = pygame.time.Clock()
+        self.start = 6000
+        self.clock.tick(100)
+
+    def time(self):
+        self.start -= 1
+        if self.start <= 0:
+            return False
+        return True
+    #GPT    
+    def get_time_string(self):
+        remaining_time = max(0, self.start)
+        minutes = remaining_time // 6000
+        seconds = (remaining_time // 100) % 60
+        milliseconds = remaining_time % 100
+        return f"Time: {minutes:02d}:{seconds:02d}:{milliseconds:02d}"
+
+    #----
+
 class Game:
-    
     def __init__(self):
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         pygame.display.set_caption('Genius Heist')
@@ -14,6 +34,7 @@ class Game:
         self.sprites = pygame.sprite.Group()
         self.map = MAP
         self.mapa()
+        self.timer = Timer()
 
     def atualiza_estado(self):
         for event in pygame.event.get():
@@ -22,10 +43,12 @@ class Game:
         return True
     
     def mapa(self):
+        basex = SCREEN_WIDTH // 2 - (len(MAP[0]) * WALL_GAP) // 2
+        basey = SCREEN_HEIGHT // 2 - (len(MAP) * WALL_GAP) // 2
         for line_index, line in enumerate(MAP):
             for column_index, column in enumerate(line):
-                x = column_index * WALL_GAP 
-                y = line_index  * WALL_GAP
+                x = basex + column_index * WALL_GAP 
+                y = basey + line_index  * WALL_GAP
                 if column == 'X':
                     Wall((x, y), self.walls)
                 if column == 'S':
@@ -43,11 +66,18 @@ class Game:
         self.window.fill((30,30,65))
         self.walls.draw(self.window)
         self.sprites.draw(self.window)
-        self.players.draw(self.window)         
+        self.players.draw(self.window)
+        #GPT + stackoverflow
+        time_text = self.timer.get_time_string()
+        font = pygame.font.Font(None, 36)
+        time_text = self.timer.get_time_string()
+        text = font.render(time_text, True, (255, 255, 255))
+        self.window.blit(text, (10, 10))
+        #-------------------
         pygame.display.update()  
         
     def start(self):
-        while self.atualiza_estado():
+        while self.atualiza_estado() and self.timer.time():
             self.player1.move(self.walls)
             self.player2.move(self.walls)
             self.desenha()
