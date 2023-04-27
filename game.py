@@ -22,10 +22,12 @@ class Game:
         return True
     
     def mapa(self):
+        basex = SCREEN_WIDTH // 2 - (len(MAP[0]) * WALL_GAP) // 2
+        basey = SCREEN_HEIGHT // 2 - (len(MAP) * WALL_GAP) // 2
         for line_index, line in enumerate(MAP):
             for column_index, column in enumerate(line):
-                x = column_index * WALL_GAP 
-                y = line_index  * WALL_GAP
+                x = basex + column_index * WALL_GAP 
+                y = basey + line_index  * WALL_GAP
                 if column == 'X':
                     Wall((x, y), self.walls)
                 if column == 'S':

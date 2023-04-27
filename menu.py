@@ -24,7 +24,6 @@ class Menu:
         self.fonte = pygame.font.Font(self.fonte_padrao, 45)
         self.titulo = self.fonte.render('GENIUS HEIST', True, (255,255,0))
 
-    #Desenha as imagens do menu.
     def desenha_menu(self):
         self.window.blit(self.background,(0,0))
 
