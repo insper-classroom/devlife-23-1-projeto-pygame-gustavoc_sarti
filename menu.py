@@ -27,7 +27,8 @@ class Menu:
         self.botoes = ['jogar','tutorial','sair']
         self.fonte_padrao = pygame.font.get_default_font()
         self.fonte = pygame.font.Font(self.fonte_padrao, 45)
-        self.titulo = self.fonte.render('GENIUS HEIST', True, (255,255,0))
+        self.fonte_titulo = pygame.font.Font(self.fonte_padrao, 100)
+        self.titulo = self.fonte_titulo.render('GENIUS HEIST', True, (255,255,0))
 
     def desenha_menu(self): #usamos o Chat GPT para a centralizacao
         self.window.blit(self.background, (0, 0))

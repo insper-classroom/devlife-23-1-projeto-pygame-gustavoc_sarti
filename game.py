@@ -7,7 +7,7 @@ import gameover
 class Timer:
     def __init__(self):
         self.clock = pygame.time.Clock()
-        self.start = 3000
+        self.start = 1000
         self.clock.tick(100)
 
     def time(self):

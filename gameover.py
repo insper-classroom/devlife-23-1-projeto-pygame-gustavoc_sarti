@@ -18,34 +18,42 @@ class Gameover:
     def desenha_gameover(self):
         self.window.fill((0, 0, 0))
         self.window.blit(self.titulo, ((SCREEN_WIDTH - self.titulo.get_width()) // 2, 100))
-
-        button_width, button_height = self.button.get_size()
+        self.button_width, self.button_height = self.button.get_size()
         for i, label in enumerate(self.botoes):
-            text = self.fonte.render(label, True, (255, 255, 255))
-            text_width, text_height = text.get_size()
-
-            x_button = (SCREEN_WIDTH - button_width) // 2
-            y_button = 300 + i * (button_height + 50)
-
-            x_text = (SCREEN_WIDTH - text_width) // 2
-            y_text = y_button + (button_height - text_height) // 2
-
-            self.window.blit(self.button, (x_button, y_button))
-            self.window.blit(text, (x_text, y_text))
-
+            text_surface = self.fonte.render(label, True, (255, 255, 255))
+            text_width, text_height = text_surface.get_size()
+            self.x_button = (SCREEN_WIDTH - self.button_width) // 2
+            self.y_button = 300 + (i * (self.button_height + 50))
+            y_text = self.y_button + (self.button_height - text_height) // 2
+            self.window.blit(self.button, (self.x_button, self.y_button))
+            self.window.blit(text_surface, ((SCREEN_WIDTH - text_width) // 2, y_text))
         pygame.display.update()
 
     def clique_jogar_novamente(self):
-        return (
-            390 <= self.mouse_pos[0] <= 390 + 240 and
-            300 <= self.mouse_pos[1] <= 300 + 80
-        )
+        self.x_button = (SCREEN_WIDTH - self.button_width) // 2
+        self.y_button = (SCREEN_HEIGHT - (len(self.botoes) * (self.button_height + 50))) // 2
+        if (
+            self.x_button <= self.mouse_pos[0] and 
+            self.mouse_pos[0] <= self.x_button + self.button_width and
+            self.y_button <= self.mouse_pos[1] and
+            self.mouse_pos[1] <= self.y_button + self.button_height
+            ):
+                return True
+        else:
+                return False
 
     def clique_sair(self):
-        return (
-            390 <= self.mouse_pos[0] <= 390 + 240 and
-            450 <= self.mouse_pos[1] <= 450 + 80
-        )
+        self.x_button = (SCREEN_WIDTH - self.button_width) // 2
+        self.y_button = (SCREEN_HEIGHT - (len(self.botoes) * (self.button_height + 50))) // 2 + self.button_height + 50
+        if (
+            self.x_button <= self.mouse_pos[0] and 
+            self.mouse_pos[0] <= self.x_button + self.button_width and
+            self.y_button <= self.mouse_pos[1] and
+            self.mouse_pos[1] <= self.y_button + self.button_height
+            ):
+                return True
+        else:
+                return False
 
     def atualiza_estado(self):
         self.mouse_pos = pygame.mouse.get_pos()
