@@ -1,181 +1,261 @@
-*{
-    margin: 0;
-    padding: 0;
+/* CSS Reset */
+* {
+    margin: 0px;
+    padding: 0px;
     box-sizing: content-box;
 }
 
-.header{
+body {
+    background-color: black;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* Navbar */
+nav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background-color: black;
+    height: 6vh;
+    background: linear-gradient(to bottom right, #00264d, #990000);
+  }
+  
+  .navbar {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  .btn-nav {
+    float: left;
+    width: 10%;
+  }
+
+  .nav-div {
+    float: left;
+    padding-left: 0.5%;
+    padding-right: 0.5%;
+  }
+
+  .btn-dwnld {
+    float: right;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-right: 8%;
+  }
+  
+  .navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    padding-top: 1%;
+    padding-bottom: 1%;
+  }
+  
+  .btn-nav:hover {
+    color: black;
+    background-color: white;
+    font-weight: bolder;
+
+  }
+
+  .btn-dwnld:hover {
+    color: black;
+    background-color: white;
+    font-weight: bolder;
+  }
+
+/* Main */
+
+/* Landing page */
+.landing-page {
     width: 100%;
-    height: 100vh;
+    height: 94vh;
     background: linear-gradient(to bottom right, #00264d, #990000);
 }
 
-.top-nav{
+.logo {
+    color: white;
+    text-align: center;
+    font-weight: 1000;
+    font-size: 10ch;
+    padding-top: 35vh;
+}
+
+.landing-page h5 {
+    margin-right: 18vw;
+    text-align: center;
+}
+
+.landing-apresentacao {
+    text-align: center;
+    font-weight: 800;
+    font-size: x-large;
+    padding-top: 50px;
+}
+/* Apresentação */
+.main-page {
+    height: 100vh;
+    background-image: url('/assets/images/site_images/bg.png');
+}
+
+.apresentacao {
+    padding-top: 5%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2% 4%;
-
-}
-.top-nav ul li{
-    display: inline-block;
-    color: #fff
-}
-
-.espaco {
-    margin-left: 20px;
-}
-
-.btn-nav {
-    text-decoration: none;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-right: 60px;
-    padding-left: 60px;
-    text-align: center;
-    color: white;
-    background-color: transparent;
-    border: none;
-    font-size:medium;
-    font-weight: bolder;
-
-}
-
-.btn-nav:hover {
-    background-color: white;
-    color: black;
-    font-weight: bolder;
-
-}
-
-.divisions {
-    padding-left: 5px;
-    padding-right: 5px;
-    text-align: center;
-    color: white;
-    background-color: transparent;
-    border: none;
-    font-weight: bolder;
-
-}
-
-.home-holder {
-    font-size: larger;
-    font-weight: bolder;
-    text-align: center;
-    color: white;
-    padding: 1% 5% 1% 5%;
-}
-
-.images-home {
-    width: 30%;
-    padding: 1%;
-
+    height: 50%;
+    width: 100%;
 }
 
 .texto-apresentacao {
-    padding: 3%;
-    text-align: justify;
-    color: lightgray;
-    line-height: 2;
-    padding-top: 1%;
-    font-size: larger;
-    font-weight: bolder;
-}
-
-.black-box {
-    position: relative;
-    background-color: black;
-    width: 100%;
-    height: 3%;
-}
-
-.logo{
-    width: 150px;
-    position: absolute;
-    top: 950px;
-    right: 69px;
-}
-
-.structure-background {
-    background-image: url("/assets/images/site_images/SLIMBRICKS.png");
-}
-
-.structure {
-    color: white;
-    background-image: url("/assets/images/site_images/PAVEMENT.png");
-    margin: 0px 5%;
-    padding: 0.5% 1%;
-    border: 5px solid black;
-}
-
-.structure h2 {
-    font-size: xx-large;
-    font-weight: bolder;
-}
-
-.structure p {
-    text-align: justify;
-    font-size: larger;
-    font-weight: bold;
-    color: lightgray;
-}
-
-.structure h3 {
-    font-weight: bolder;
-    font-size: x-large;
-}
-
-.splitter {
-    margin: 2% 0px ;
-    display: flex;
-    border: 5px solid transparent;
-    width: 100%;
-}
-
-.splitter .topico-guia {
-    margin-right: 1%;
-    width: 49%;
-    border: 5px solid white;
-    padding: 1%;
+    margin-left: 1%;
+    margin-right: 2.5%;
     border-radius: 20px;
+    background: rgba(240,160,160,0.7)
+
+}
+
+.texto-apresentacao h4{
+    background: rgba(180,100,100,0.9);
+    border-radius: 20px 20px 0px 0px;
+    font-size: x-large;
+    font-weight: 600;
+    text-align: center;
+}
+
+.texto-apresentacao p{
+    margin-top: 2%;
+    padding-left: 0.5%;
+    font-size: large;
+    font-weight: 400;
+}
+
+.img-apresentacao {
+    margin-right: 1%;
+    margin-left: 2.5%;
+    border-radius: 20px;
+}
+
+.imagens-personagens {
+    height: 50%;
+    display: flex;
+    
+}
+
+.img-player {
+    padding-left: 17%;
+    padding-right: 15%;
+}
+
+/* Como jogar */
+.h2p {
+    padding-top: 10px;
+    background: linear-gradient( #000, #432371);
+    height: 100vh;
+}
+
+.centered {
+    font-size: xx-large;
+    font-weight: 800;
+    text-align: center;
+    height: 5vh;
+    width: 100%;
+}
+
+.split {
+    height: 90vh;
+    width: 100%;
+    display: flex;
 }
 
 .splitted {
-    width: 49%;
-    margin-left: 1%;
-    border: 5px solid white;
-    padding: 1%;
-    border-radius: 20px;
+    border: 2px solid white;
+    border-radius: 5px;
+    width: 40%;
+    height: 80%;
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-left: 1%;
 }
 
-.inside-splitted {
+.splitted h3 {
+    padding-top: 2%;
+    font-weight: 800;
+    padding-bottom: 2%;
+}
+
+.splitted p {
+    font-size: large;
+    width: 600;
+    margin-bottom: 5%;
+}
+
+.img-tutorial {
+    margin-left: 15%;
+    height: 35vh;
+}
+
+/* Galeria */
+.galeria {
+    padding-top: 1%;
+    background: linear-gradient(to bottom right, #432371, #990000);
+    height: 100vh;
+}
+
+.fotos {
+    text-align: center;
+}
+
+.fileira {
+    padding-top: 2%;
+    padding-bottom: 1%;
+}
+
+.img-galeria {
+    padding-left: 1%;
+    padding-right: 1%;
+    height: 30vh;
+}
+
+/* Quem Somos */
+.quem-somos {
+    padding-top: 1%;
+    background: linear-gradient(to bottom right, #990000, #000000);
+    height: 100vh;
+}
+
+.foto-facul {
+    margin-left: 5%;
+    margin-top: 10%;
+    border: 5px solid white;
+    width: min-content;
+}
+
+.img-facul {
+    height: 50vh;
+}
+
+.splitter-quem-somos {
     display: flex;
 }
 
-.image-tutorial {
-    padding-left: 5%;
-    width: 45%;
-}
-
-.galeria {
-    text-align: center;
-}
-
-.foto-galeria {
-    margin: 0.5%;
-    width: 25%;
-}
-
-h5 {
-    margin-top: 1%;
-    font-size: x-large;
+.texto-quem-somos {
+    font-size: larger;
     font-weight: bolder;
+    padding-left: 1%;
+    padding-right: 1%;
+    margin-left: 2%;
+    margin-top: 15%;
 }
 
-.centralizador {
-    text-align: center;
-}
-.centralizador p {
+/* Baixar */
+.dwnld {
+    padding-top: 1%;
+    background-color: black;
+    height: 50vh;
     text-align: center;
 }
