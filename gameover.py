@@ -10,7 +10,7 @@ class Gameover:
         self.reset = False
         self.button = pygame.image.load('assets/images/menu/button_unselected.jpg')
         self.button = pygame.transform.scale(self.button, (240, 80))
-        self.botoes = ['jogar novamente', 'sair']
+        self.botoes = ['restart', 'sair']
         self.fonte_padrao = pygame.font.get_default_font()
         self.fonte = pygame.font.Font(self.fonte_padrao, 45)
         self.titulo = self.fonte.render('Game Over', True, (255, 255, 255))
