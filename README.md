@@ -14,3 +14,6 @@ APAGUE ESSE CONTEÚDO E SUBSTITUA PELO SEU PRÓPRIO README!
 
 Todos os sons foram retirados de uma biblioteca gratuita e sem copyrights do site freesound.org, então alterados em um editor de som para combinarem melhor com o jogo.
 Musica principal de fundo: "Lakey Inspired - Feeling Good pt. 2"
+
+Pixel art do site:
+https://craftpix.net/freebies/free-city-backgrounds-pixel-art/
