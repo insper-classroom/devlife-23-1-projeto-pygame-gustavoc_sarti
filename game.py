@@ -26,11 +26,11 @@ class Timer:
     def get_score(self):
         remaining_time = max(0, self.start)
         if remaining_time > 500:
-            score = [1,2,3]
+            score = [1,1,1]
         elif remaining_time > 250:
-            score = [2,3]
+            score = [1,1]
         else:
-            score = [3]
+            score = [1]
         return score
 
 class Game:
@@ -85,11 +85,17 @@ class Game:
         font = pygame.font.Font(None, 36)
         text = font.render(time_text, True, (255, 255, 255))
         self.window.blit(text, (10, 10))
-        for star in self.score:
-            self.window.blit(STAR, (SCREEN_WIDTH - (300 - (star*30)), 50))
         #----
-        
-                
+        score = self.timer.get_score()
+        for i in range(3):
+            if i < len(score):
+                print('ganhou')
+                self.window.blit(STAR, (SCREEN_WIDTH - 300 - i * 30, 50))
+            else:
+                print('perdeu')
+                self.window.blit(NULL_STAR  , (SCREEN_WIDTH - 300 - i * 30, 50))
+                break
+            
         pygame.display.update()  
 
 # alguns trechos da parte responsavel por resetar o game foi feita pelo GPT        

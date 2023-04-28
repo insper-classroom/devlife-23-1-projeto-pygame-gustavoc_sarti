@@ -4,8 +4,12 @@ SCREEN_HEIGHT = 969
 SCREEN_WIDTH = 1420
 
 TIMER = 1000
+
 star = pygame.image.load('assets/images/props/star_vector.png')
+null_star = pygame.image.load('assets/images/props/null_star.png')
+
 STAR = pygame.transform.scale(star,(20,20))
+NULL_STAR = pygame.transform.scale(null_star,(20,20))
 
 WALL_GAP = 25
 
