@@ -25,9 +25,9 @@ class Timer:
     #----
     def get_score(self):
         remaining_time = max(0, self.start)
-        if remaining_time > 500:
+        if remaining_time > TIMER//2:
             score = [1,1,1]
-        elif remaining_time > 250:
+        elif remaining_time > TIMER//4:
             score = [1,1]
         else:
             score = [1]
@@ -45,7 +45,6 @@ class Game:
         self.map = MAP
         self.mapa()
         self.timer = Timer()
-        self.score = self.timer.get_score()
 
     def atualiza_estado(self):
         for event in pygame.event.get():
@@ -94,7 +93,7 @@ class Game:
             else:
                 print('perdeu')
                 self.window.blit(NULL_STAR  , (SCREEN_WIDTH - 300 - i * 30, 50))
-                break
+
             
         pygame.display.update()  
 
@@ -116,4 +115,3 @@ class Game:
             else:
                 self.gameover.desenha_gameover()
                 self.gameover.atualiza_estado()
-    
