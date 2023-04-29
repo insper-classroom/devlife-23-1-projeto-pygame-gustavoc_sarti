@@ -13,6 +13,13 @@ class Menu:
         pygame.display.set_caption("Menu")
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+        #Start music
+        pygame.mixer.music.load('assets/sounds/sounds_misc/ogg/background_music.ogg')
+        pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(0.08)
+        self.loss_sound = pygame.mixer.Sound('assets/sounds/sounds_misc/ogg/defeat.ogg')
+        self.loss_sound.set_volume(0.1)
+
         #Configura os botões
         self.button = pygame.image.load('assets/images/menu/button_unselected.jpg')
         self.button = pygame.transform.scale(self.button, (240, 80))
@@ -93,6 +100,8 @@ class Menu:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.clique_jogar():
                     self.game.start()
+                    pygame.mixer.music.stop()
+                    self.loss_sound.play()
                     self.gameover.start()
                     
 

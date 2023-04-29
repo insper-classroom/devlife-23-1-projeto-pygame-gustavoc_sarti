@@ -13,6 +13,8 @@ class Player1(pyg.sprite.Sprite):
         }
         self.direction = [0, 0]
         self.speed = 17
+        self.dash_sound = pyg.mixer.Sound('assets/sounds/player_sounds/ogg/dash-high_volume.ogg')
+        self.dash_sound.set_volume(0.1)
         
 
     def move(self, walls):
@@ -20,12 +22,16 @@ class Player1(pyg.sprite.Sprite):
         if not self.state['moving']:
             if keys[pyg.K_UP]:
                 self.direction[1] = -1
+                self.dash_sound.play()
             elif keys[pyg.K_DOWN]:
                 self.direction[1] = 1
+                self.dash_sound.play()
             elif keys[pyg.K_LEFT]:
                 self.direction[0] = -1
+                self.dash_sound.play()
             elif keys[pyg.K_RIGHT]:
                 self.direction[0] = 1
+                self.dash_sound.play()
 
 # chat GPT sugeriu a ideia do old_rect    
         if any(self.direction):
@@ -66,6 +72,8 @@ class Player2(pyg.sprite.Sprite):
         }
         self.direction = [0, 0]
         self.speed = 17
+        self.dash_sound = pyg.mixer.Sound('assets/sounds/player_sounds/ogg/dash-high_volume.ogg')
+        self.dash_sound.set_volume(0.1)
         
 
     def move(self, walls):
@@ -73,12 +81,16 @@ class Player2(pyg.sprite.Sprite):
         if not self.state['moving']:
             if keys[pyg.K_w]:
                 self.direction[1] = -1
+                self.dash_sound.play()
             elif keys[pyg.K_s]:
                 self.direction[1] = 1
+                self.dash_sound.play()
             elif keys[pyg.K_a]:
                 self.direction[0] = -1
+                self.dash_sound.play()
             elif keys[pyg.K_d]:
                 self.direction[0] = 1
+                self.dash_sound.play()
 
 # chat GPT sugeriu a ideia do old_rect    
         if any(self.direction):

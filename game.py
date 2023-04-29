@@ -37,7 +37,7 @@ class Game:
     def __init__(self):
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         pygame.display.set_caption('Genius Heist')
-
+        
         self.gameover = gameover.Gameover()
         self.players = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
