@@ -12,7 +12,7 @@ class Player1(pyg.sprite.Sprite):
             'moving' : False,
         }
         self.direction = [0, 0]
-        self.speed = 10
+        self.speed = 17
         
 
     def move(self, walls):
@@ -65,7 +65,7 @@ class Player2(pyg.sprite.Sprite):
             'moving' : False,
         }
         self.direction = [0, 0]
-        self.speed = 10
+        self.speed = 17
         
 
     def move(self, walls):

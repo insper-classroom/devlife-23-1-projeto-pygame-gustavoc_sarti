@@ -21,8 +21,6 @@ class Menu:
         background = pygame.image.load('assets/images/menu/bank-pygame.jpeg')
         self.background = pygame.transform.scale(background,(1420,969))
         
-
-
         #Configura texto dos botões
         self.botoes = ['jogar','tutorial','sair']
         self.fonte_padrao = pygame.font.get_default_font()

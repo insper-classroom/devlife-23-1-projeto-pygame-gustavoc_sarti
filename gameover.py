@@ -10,12 +10,13 @@ class Gameover:
         self.reset = False
         self.button = pygame.image.load('assets/images/menu/button_unselected.jpg')
         self.button = pygame.transform.scale(self.button, (240, 80))
-        self.botoes = ['jogar novamente', 'sair']
+        self.botoes = ['restart', 'sair']
         self.fonte_padrao = pygame.font.get_default_font()
         self.fonte = pygame.font.Font(self.fonte_padrao, 45)
         self.titulo = self.fonte.render('Game Over', True, (255, 255, 255))
 
-    def desenha_gameover(self):
+
+    def desenha_gameover(self, score):
         self.window.fill((0, 0, 0))
         self.window.blit(self.titulo, ((SCREEN_WIDTH - self.titulo.get_width()) // 2, 100))
         self.button_width, self.button_height = self.button.get_size()
@@ -27,6 +28,8 @@ class Gameover:
             y_text = self.y_button + (self.button_height - text_height) // 2
             self.window.blit(self.button, (self.x_button, self.y_button))
             self.window.blit(text_surface, ((SCREEN_WIDTH - text_width) // 2, y_text))
+        self.resultado = self.fonte.render(f'Voce conseguiu {score} estrelas', True, (255,255,255))
+        self.window.blit(self.resultado)
         pygame.display.update()
 
     def clique_jogar_novamente(self):

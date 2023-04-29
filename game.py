@@ -7,7 +7,7 @@ import gameover
 class Timer:
     def __init__(self):
         self.clock = pygame.time.Clock()
-        self.start = 1000
+        self.start = TIMER
         self.clock.tick(100)
 
     def time(self):
@@ -23,6 +23,15 @@ class Timer:
         milliseconds = remaining_time % 100
         return f"Time: {minutes:02d}:{seconds:02d}:{milliseconds:02d}"
     #----
+    def get_score(self):
+        remaining_time = max(0, self.start)
+        if remaining_time > TIMER//2:
+            score = [1,1,1]
+        elif remaining_time > TIMER//4:
+            score = [1,1]
+        else:
+            score = [1]
+        return score
 
 class Game:
     def __init__(self):
@@ -75,14 +84,25 @@ class Game:
         font = pygame.font.Font(None, 36)
         text = font.render(time_text, True, (255, 255, 255))
         self.window.blit(text, (10, 10))
-        #-------------------
+        #----
+        score = self.timer.get_score()
+        for i in range(3):
+            if i < len(score):
+                print('ganhou')
+                self.window.blit(STAR, (SCREEN_WIDTH - 300 - i * 30, 50))
+            else:
+                print('perdeu')
+                self.window.blit(NULL_STAR  , (SCREEN_WIDTH - 300 - i * 30, 50))
+
+            
         pygame.display.update()  
-        
+
+# alguns trechos da parte responsavel por resetar o game foi feita pelo GPT        
     def start(self):
         while self.atualiza_estado():
             if self.gameover.reset:
                 self.timer = Timer()
-                self.timer.start = 3000
+                self.timer.start = TIMER
                 self.players.empty()
                 self.walls.empty()
                 self.sprites.empty()
@@ -95,4 +115,3 @@ class Game:
             else:
                 self.gameover.desenha_gameover()
                 self.gameover.atualiza_estado()
-    
