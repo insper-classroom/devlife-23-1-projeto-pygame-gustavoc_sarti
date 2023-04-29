@@ -72,6 +72,8 @@ class Game:
                 if column == '2':
                     Floor((x, y), self.sprites)
                     self.player2 = Player2((x, y), self.players)
+                if column == '-':
+                    Laser((x, y), self.sprites)
 
     def desenha(self):
         self.window.fill((30,30,65))

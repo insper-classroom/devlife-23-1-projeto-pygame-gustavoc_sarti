@@ -22,3 +22,10 @@ class Floor(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (25, 25)).convert_alpha()
         self.image.set_alpha(50)
         self.rect = self.image.get_rect(topleft=position)
+
+class Laser(pygame.sprite.Sprite):
+    def __init__(self, position, group):
+        super().__init__(group)
+        self.image = pygame.image.load('assets/images/map_textures/laser.png')
+        self.image = pygame.transform.scale(self.image, (15,15)).convert_alpha()
+        self.rect = self.image.get_rect(topleft=position)
