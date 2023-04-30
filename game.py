@@ -43,7 +43,7 @@ class Game:
         self.lasers_x = pygame.sprite.Group()
         self.lasers_y = pygame.sprite.Group()
         self.sprites = pygame.sprite.Group()
-        self.map = MAP
+        self.map = MAP1
         self.mapa()
         self.timer = Timer()
 
@@ -60,9 +60,9 @@ class Game:
         return True
     
     def mapa(self):
-        basex = SCREEN_WIDTH // 2 - (len(MAP[0]) * WALL_GAP) // 2
-        basey = SCREEN_HEIGHT // 2 - (len(MAP) * WALL_GAP) // 2
-        for line_index, line in enumerate(MAP):
+        basex = SCREEN_WIDTH // 2 - (len(MAP1[0]) * WALL_GAP) // 2
+        basey = SCREEN_HEIGHT // 2 - (len(MAP1) * WALL_GAP) // 2
+        for line_index, line in enumerate(MAP1):
             for column_index, column in enumerate(line):
                 x = basex + column_index * WALL_GAP 
                 y = basey + line_index  * WALL_GAP
