@@ -3,7 +3,6 @@ import pygame as pyg
 class Player1(pyg.sprite.Sprite):
     
     def __init__(self, position, group):
-
         super().__init__(group)
         self.player = pyg.image.load('assets/images/players/player_01-pre_dash.png')
         self.image = pyg.transform.scale(self.player, (30, 50)).convert_alpha()
@@ -78,7 +77,6 @@ class Player1(pyg.sprite.Sprite):
 class Player2(pyg.sprite.Sprite):
     
     def __init__(self, position, group):
-
         super().__init__(group)
         self.player = pyg.image.load('assets/images/players/player_02-pre_dash.png')
         self.image = pyg.transform.scale(self.player, (30, 50)).convert_alpha()

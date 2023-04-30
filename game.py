@@ -37,20 +37,26 @@ class Game:
     def __init__(self):
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         pygame.display.set_caption('Genius Heist')
-        
         self.gameover = gameover.Gameover()
         self.players = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
+        self.lasers_x = pygame.sprite.Group()
+        self.lasers_y = pygame.sprite.Group()
         self.sprites = pygame.sprite.Group()
         self.map = MAP
         self.mapa()
         self.timer = Timer()
 
-    def atualiza_estado(self):
+    def atualiza_estado(self, players, lasers_x, lasers_y):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
+
+        lasered_x = pygame.sprite.groupcollide(players, lasers_x, False, False, pygame.sprite.collide_rect)
+        lasered_y = pygame.sprite.groupcollide(players, lasers_y, False, False, pygame.sprite.collide_rect)
+        if lasered_x or lasered_y:
+                return False
         return True
     
     def mapa(self):
@@ -71,11 +77,11 @@ class Game:
                 if column == '2':
                     self.player2 = Player2((x, y), self.players)
                 if column == '-':
-                    Laser_x((x, y), self.sprites)
+                    Laser_x((x, y), self.lasers_x)
                 if column == '8':
                     Gun_x((x, y), self.sprites)
                 if column == 'I':
-                    Laser_y((x, y), self.sprites)
+                    Laser_y((x, y), self.lasers_y)
                 if column == 'L':
                     Gun_y((x, y), self.sprites)
 
@@ -84,6 +90,8 @@ class Game:
         self.walls.draw(self.window)
         self.sprites.draw(self.window)
         self.players.draw(self.window)
+        self.lasers_x.draw(self.window)
+        self.lasers_y.draw(self.window)
         #GPT + stackoverflow
         self.timer.clock.tick(100)
         time_text = self.timer.get_time_string()
@@ -94,24 +102,21 @@ class Game:
         score = self.timer.get_score()
         for i in range(3):
             if i < len(score):
-                print('ganhou')
                 self.window.blit(STAR, (SCREEN_WIDTH - 300 - i * 30, 50))
             else:
-                print('perdeu')
                 self.window.blit(NULL_STAR  , (SCREEN_WIDTH - 300 - i * 30, 50))
-
-            
         pygame.display.update()  
 
 # alguns trechos da parte responsavel por resetar o game foi feita pelo GPT        
     def start(self):
-        while self.atualiza_estado():
+        while self.atualiza_estado(self.players, self.lasers_x, self.lasers_y):
             if self.gameover.reset:
                 self.timer = Timer()
                 self.timer.start = TIMER
                 self.players.empty()
                 self.walls.empty()
                 self.sprites.empty()
+                self.lasers.empty()
                 self.mapa()
                 self.gameover.reset = False
             if self.timer.time():
