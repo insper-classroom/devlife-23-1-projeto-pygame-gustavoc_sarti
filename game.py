@@ -64,16 +64,20 @@ class Game:
                     Wall((x, y), self.walls)
                 if column == 'S':
                     SideWall((x, y), self.walls)
-                if column == ' ':
+                if column == ' ' or column == '1' or column == '-' or column == '8' or column == 'I' or column == 'L' or column == '2':
                     Floor((x, y), self.sprites)
                 if column == '1':
-                    Floor((x, y), self.sprites)
                     self.player1 = Player1((x, y), self.players)
                 if column == '2':
-                    Floor((x, y), self.sprites)
                     self.player2 = Player2((x, y), self.players)
                 if column == '-':
-                    Laser((x, y), self.sprites)
+                    Laser_x((x, y), self.sprites)
+                if column == '8':
+                    Gun_x((x, y), self.sprites)
+                if column == 'I':
+                    Laser_y((x, y), self.sprites)
+                if column == 'L':
+                    Gun_y((x, y), self.sprites)
 
     def desenha(self):
         self.window.fill((30,30,65))
