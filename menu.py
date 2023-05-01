@@ -1,5 +1,6 @@
 from config import *
-import game
+import level1
+import level2
 import pygame
 import gameover
 
@@ -8,17 +9,15 @@ class Menu:
     def __init__(self,):
         #Inicialização basica
         pygame.init()
-        self.game = game.Game()
-        self.gameover = gameover.Gameover()
-        pygame.display.set_caption("Menu")
+        self.level1 = level1.Level1()
+        self.level2 = level2.Level2()
+        pygame.display.set_caption("Genius Heist")
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
         #Start music
         pygame.mixer.music.load('assets/sounds/sounds_misc/ogg/background_music.ogg')
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(0.08)
-        self.loss_sound = pygame.mixer.Sound('assets/sounds/sounds_misc/ogg/defeat.ogg')
-        self.loss_sound.set_volume(0.1)
 
         #Configura os botões
         self.button = pygame.image.load('assets/images/menu/button_unselected.jpg')
@@ -101,17 +100,14 @@ class Menu:
                 return False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.clique_jogar():
-                    self.game.start()
-                    pygame.mixer.music.stop()
-                    self.loss_sound.play()
-                    self.gameover.start()
-                    
+                    self.level1.start()
+                    self.level2.start()
 
                     return False
                 if self.clique_tutorial():
                     return False
                 if self.clique_sair():
-                    return False
+                    pygame.quit()
         return True
 
     #Função principal que inicia o jogo todo a partir do menu.
