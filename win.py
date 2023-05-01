@@ -7,7 +7,7 @@ class Win:
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.button = pygame.image.load('assets/images/menu/button_selected.jpg')
         self.button = pygame.transform.scale(self.button, (240, 80))
-        self.botoes = ['sair']
+        self.botoes = ['MENU!']
         self.fonte_padrao = pygame.font.get_default_font()
         self.fonte = pygame.font.Font(self.fonte_padrao, 45)
         self.titulo = self.fonte.render('Você Escapou!', True, (0, 0, 0))

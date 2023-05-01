@@ -26,4 +26,4 @@ def player_hit(self):
     lasered_x = pygame.sprite.groupcollide(self.players, self.lasers_x, False, False, pygame.sprite.collide_rect)
     lasered_y = pygame.sprite.groupcollide(self.players, self.lasers_y, False, False, pygame.sprite.collide_rect)
     if lasered_x or lasered_y:
-        self.defeat = True
+        self.victory = True
