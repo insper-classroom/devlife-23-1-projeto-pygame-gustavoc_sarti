@@ -95,6 +95,24 @@ class Level2:
                 if column == 'D':
                     Diamond((x, y), self.sprites)
 
+    #Função de RESET, serve para resetar TODAS as variaveis(init) de toda a classe e funções para assim reiniciar o jogo.
+    def reset(self):
+        self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        pygame.display.set_caption('Genius Heist')
+        self.gameover = gameover.Gameover()
+        self.level3 = level3.Level3
+        self.players = pygame.sprite.Group()
+        self.walls = pygame.sprite.Group()
+        self.lasers_x = pygame.sprite.Group()
+        self.lasers_y = pygame.sprite.Group()
+        self.sprites = pygame.sprite.Group()
+        self.guns = pygame.sprite.Group()
+        self.map = MAP2
+        self.mapa()
+        self.timer = Timer()
+        self.defeat = False
+        self.victory = False
+
     def desenha(self):
         self.window.fill((30,30,65))
         self.walls.draw(self.window)
@@ -127,5 +145,6 @@ class Level2:
                 self.desenha()
             if self.defeat or self.timer.time() == False:
                 self.gameover.start()
+                self.reset()
             if self.victory:
                 self.level3.start()
