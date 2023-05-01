@@ -98,7 +98,6 @@ class Menu:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.clique_jogar():
                     self.level1.start()
-
                     return False
                 if self.clique_tutorial():
                     return False

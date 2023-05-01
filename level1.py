@@ -35,7 +35,6 @@ class Timer:
             score = [1]
         return score
 
-
 #Jogo
 class Level1:
     def __init__(self):
@@ -83,8 +82,6 @@ class Level1:
                 for arma_horizontal in self.lasers_x:
                     if arma_horizontal.rect.y // 40 == row_index:
                         self.lasers_x.remove(arma_horizontal)
-
-
         return True
     
     #Cria o mapa do jogo
