@@ -34,6 +34,8 @@ class Menu:
         self.fonte = pygame.font.Font(self.fonte_padrao, 45)
         self.fonte_titulo = pygame.font.Font(self.fonte_padrao, 100)
         self.titulo = self.fonte_titulo.render('GENIUS HEIST', True, (0,0,0))
+        self.button_width, self.button_height = self.button.get_size()
+
 
     def desenha_menu(self): #usamos o Chat GPT para a centralizacao
         self.window.blit(self.background, (0, 0))
@@ -61,8 +63,8 @@ class Menu:
         if (
             (SCREEN_WIDTH - 240) // 2 <= self.mouse_pos[0] and 
             self.mouse_pos[0] <= (SCREEN_WIDTH - 240) // 2 + 240 and
-            (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 <= self.mouse_pos[1] and
-            self.mouse_pos[1] <= (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 + 80
+            (SCREEN_HEIGHT - (len(self.botoes) * (self.button_height + 20))) // 2 <= self.mouse_pos[1] and
+            self.mouse_pos[1] <= (SCREEN_HEIGHT - (len(self.botoes) * (self.button_height + 20))) // 2 + self.button_height
             ):
                 return True
         else:
