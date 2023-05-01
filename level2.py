@@ -4,6 +4,7 @@ from config import *
 from sprites.map_content import *
 import gameover
 import level3
+import functions
 
 #Timer
 class Timer:
@@ -60,30 +61,8 @@ class Level2:
             if event.type == pygame.QUIT:
                 pygame.quit()
 
-        lasered_x = pygame.sprite.groupcollide(self.players, self.lasers_x, False, False, pygame.sprite.collide_rect)
-        lasered_y = pygame.sprite.groupcollide(self.players, self.lasers_y, False, False, pygame.sprite.collide_rect)
-        if lasered_x or lasered_y:
-                self.defeat = True
-        
-
-        #Codigo para a remoção dos LASER disparados, feito com auxilio do chatGPT para criar a base e pensar a lõgica.
-        #Basicamente ao remover a arma que dispara o laser, tambem pega suas cordenadas(na tela Pygame), as divide pelo
-        #tamanho de um 'tile' do mapa, assim descobrindo a posição X,Y do arma(na lista do mapa). Em seguida remove todos
-        #os lasers desta fileira ou coluna, configurado manualmente dependendo se é um laser X ou Y.
-        lasers_colididos = pygame.sprite.groupcollide(self.players, self.guns, False, True, pygame.sprite.collide_rect)
-        for player_sprite, laser_list in lasers_colididos.items():
-            for gun_sprite in laser_list:
-                #Pega tanto os index X e Y de colisao
-                col_index = gun_sprite.rect.x // 40  #40 por ser o tamanho de um tile na tela
-                row_index = gun_sprite.rect.y // 40  #40 por ser o tamanho de um tile na tela
-                #Remove todos os laser de armas destruidas
-                for arma_vertical in self.lasers_y:
-                    if arma_vertical.rect.x // 40 == col_index:
-                        self.lasers_y.remove(arma_vertical)
-                for arma_horizontal in self.lasers_x:
-                    if arma_horizontal.rect.y // 40 == row_index:
-                        self.lasers_x.remove(arma_horizontal)
-
+                functions.player_hit(self)
+                functions.laser_break(self)
 
         return True
     
@@ -115,6 +94,26 @@ class Level2:
                     Gun_y((x, y), self.guns)
                 if column == 'D':
                     Diamond((x, y), self.sprites)
+
+    #Função de RESET, serve para resetar TODAS as variaveis(init) de toda a classe e funções para assim reiniciar o jogo.
+    def reset(self):
+        self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        pygame.display.set_caption('Genius Heist')
+        self.gameover = gameover.Gameover()
+        self.level3 = level3.Level3
+        self.players = pygame.sprite.Group()
+        self.walls = pygame.sprite.Group()
+        self.lasers_x = pygame.sprite.Group()
+        self.lasers_y = pygame.sprite.Group()
+        self.sprites = pygame.sprite.Group()
+        self.guns = pygame.sprite.Group()
+        self.map = MAP2
+        self.mapa()
+        self.timer = Timer()
+        self.defeat = False
+        self.victory = False
+        pygame.mixer.music.play(-1)
+
 
     def desenha(self):
         self.window.fill((30,30,65))
@@ -148,5 +147,6 @@ class Level2:
                 self.desenha()
             if self.defeat or self.timer.time() == False:
                 self.gameover.start()
+                self.reset()
             if self.victory:
                 self.level3.start()
