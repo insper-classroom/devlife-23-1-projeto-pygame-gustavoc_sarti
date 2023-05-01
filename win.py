@@ -17,6 +17,7 @@ class Win:
 
         self.win_sound = pygame.mixer.Sound('assets/sounds/sounds_misc/ogg/victory_music.ogg')
         self.win_sound.set_volume(0.1)
+        self.menu = False
 
 
     def desenha_win(self):
@@ -52,7 +53,7 @@ class Win:
                 exit()
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if self.clique_sair():
-                    pygame.quit()
+                    self.menu = True
         return True
 
     def start(self):
@@ -60,3 +61,5 @@ class Win:
         self.win_sound.play()
         while self.atualiza_estado():
             self.desenha_win()
+            if self.menu:
+                break

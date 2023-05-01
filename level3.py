@@ -3,7 +3,6 @@ from sprites.player import *
 from config import *
 from sprites.map_content import *
 import gameover
-import win
 import functions
 
 #Timer
@@ -43,7 +42,6 @@ class Level3:
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         pygame.display.set_caption('Genius Heist')
         self.gameover = gameover.Gameover()
-        self.win = win.Win()
         self.players = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
         self.lasers_x = pygame.sprite.Group()
@@ -68,9 +66,9 @@ class Level3:
     
     #Cria o mapa do jogo
     def mapa(self):
-        basex = SCREEN_WIDTH // 2 - (len(MAP3[0]) * WALL_GAP) // 2
-        basey = SCREEN_HEIGHT // 2 - (len(MAP3) * WALL_GAP) // 2
-        for line_index, line in enumerate(MAP3):
+        basex = SCREEN_WIDTH // 2 - (len(self.map[0]) * WALL_GAP) // 2
+        basey = SCREEN_HEIGHT // 2 - (len(self.map) * WALL_GAP) // 2
+        for line_index, line in enumerate(self.map):
             for column_index, column in enumerate(line):
                 x = basex + column_index * WALL_GAP 
                 y = basey + line_index  * WALL_GAP
@@ -99,7 +97,6 @@ class Level3:
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         pygame.display.set_caption('Genius Heist')
         self.gameover = gameover.Gameover()
-        self.win = win.Win()
         self.players = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
         self.lasers_x = pygame.sprite.Group()
@@ -148,4 +145,4 @@ class Level3:
                 self.gameover.start()
                 self.reset()
             if self.victory:
-                self.win.start()
+                break

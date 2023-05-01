@@ -42,7 +42,6 @@ class Level1:
     def __init__(self):
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.gameover = gameover.Gameover()
-        self.level2 = level2.Level2
         self.players = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
         self.lasers_x = pygame.sprite.Group()
@@ -67,9 +66,9 @@ class Level1:
     
     #Cria o mapa do jogo
     def mapa(self):
-        basex = SCREEN_WIDTH // 2 - (len(MAP1[0]) * WALL_GAP) // 2
-        basey = SCREEN_HEIGHT // 2 - (len(MAP1) * WALL_GAP) // 2
-        for line_index, line in enumerate(MAP1):
+        basex = SCREEN_WIDTH // 2 - (len(self.map[0]) * WALL_GAP) // 2
+        basey = SCREEN_HEIGHT // 2 - (len(self.map) * WALL_GAP) // 2
+        for line_index, line in enumerate(self.map):
             for column_index, column in enumerate(line):
                 x = basex + column_index * WALL_GAP 
                 y = basey + line_index  * WALL_GAP
@@ -147,4 +146,4 @@ class Level1:
                 self.gameover.start()
                 self.reset()
             if self.victory:
-                self.level2.start()
+                break
