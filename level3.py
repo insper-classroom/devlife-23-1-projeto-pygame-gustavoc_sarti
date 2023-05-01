@@ -111,6 +111,8 @@ class Level3:
         self.timer = Timer()
         self.defeat = False
         self.victory = False
+        pygame.mixer.music.play(-1)
+
 
     def desenha(self):
         self.window.fill((30,30,65))
