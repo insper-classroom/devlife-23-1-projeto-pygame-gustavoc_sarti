@@ -1,8 +1,6 @@
 from config import *
 import level1
-import level2
 import pygame
-import gameover
 
 class Menu:
     #Inicializa os elementos graficos do menu.
@@ -10,7 +8,6 @@ class Menu:
         #Inicialização basica
         pygame.init()
         self.level1 = level1.Level1()
-        self.level2 = level2.Level2()
         pygame.display.set_caption("Genius Heist")
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
@@ -24,7 +21,7 @@ class Menu:
         self.button = pygame.transform.scale(self.button, (240, 80))
 
         #Configura a imagem de fundo
-        background = pygame.image.load('assets/images/menu/bank-pygame.jpeg')
+        background = pygame.image.load('assets/images/menu/bank-pygame.png')
         self.background = pygame.transform.scale(background,(1420,969))
         
         #Configura texto dos botões
