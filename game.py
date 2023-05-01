@@ -84,6 +84,8 @@ class Game:
                     Laser_y((x, y), self.lasers_y)
                 if column == 'L':
                     Gun_y((x, y), self.sprites)
+                if column == 'D':
+                    Diamond((x, y), self.sprites)
 
     def desenha(self):
         self.window.fill((30,30,65))
