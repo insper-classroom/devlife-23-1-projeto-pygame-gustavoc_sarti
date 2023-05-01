@@ -1,7 +1,7 @@
 from config import *
 import pygame
 
-class Gameover:
+class Win:
     def __init__(self):
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.button = pygame.image.load('assets/images/menu/button_unselected.jpg')
@@ -10,8 +10,10 @@ class Gameover:
         self.fonte_padrao = pygame.font.get_default_font()
         self.fonte = pygame.font.Font(self.fonte_padrao, 45)
         self.titulo = self.fonte.render('Game Over', True, (255, 255, 255))
+
         self.loss_sound = pygame.mixer.Sound('assets/sounds/sounds_misc/ogg/defeat.ogg')
         self.loss_sound.set_volume(0.1)
+
 
     def desenha_gameover(self):
         self.window.fill((0, 0, 0))
