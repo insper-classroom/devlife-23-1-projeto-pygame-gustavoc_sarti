@@ -1,7 +1,8 @@
 import pygame as pyg
 
+
 class Player1(pyg.sprite.Sprite):
-    
+
     def __init__(self, position, group):
         super().__init__(group)
         self.player = pyg.image.load('assets/images/players/player_01-pre_dash.png')
@@ -15,9 +16,8 @@ class Player1(pyg.sprite.Sprite):
         self.dash_sound = pyg.mixer.Sound('assets/sounds/player_sounds/ogg/dash-high_volume.ogg')
         self.dash_sound.set_volume(0.1)
         self.timer = 0
-        
 
-    def move(self, walls):
+    def move(self, walls, guns):
         keys = pyg.key.get_pressed()
         if not self.state['moving']:
             if keys[pyg.K_UP]:
@@ -41,7 +41,7 @@ class Player1(pyg.sprite.Sprite):
             self.timer = pyg.time.get_ticks()
         if self.state['moving'] == False:
             self.animation()
-
+            
         old_rect = self.rect.copy()
         self.rect.move_ip(self.direction[0] * self.speed, self.direction[1] * self.speed)
     
@@ -51,12 +51,23 @@ class Player1(pyg.sprite.Sprite):
             self.direction = [0, 0]
             self.state['moving'] = False
             break
+        
+        collide_guns = pyg.sprite.spritecollide(self, guns, False)
+        for collide in collide_guns:
+            self.direction = [0, 0]
+            self.state['moving'] = False
 # ate aqui
 
-    def collision(self, walls):
+    def collision(self, walls, guns):
         self.rect.move_ip(self.direction[0] * self.speed, self.direction[1] * self.speed)
+        print('player position:', self.rect.topleft)
         collide_walls = pyg.sprite.spritecollide(self, walls, False)
+        collide_guns = pyg.sprite.spritecollide(self, guns, False)
+        for collide in collide_guns:
+            self.direction = [0, 0]
+            self.state['moving'] = False
         for collide in collide_walls:
+            print('wall position:', collide.rect.topleft)
             self.rect.move_ip(-self.direction[0] * self.speed, -self.direction[1] * self.speed)
             self.direction = [0, 0]
             self.state['moving'] = False
@@ -91,7 +102,7 @@ class Player2(pyg.sprite.Sprite):
         self.timer = 0
         
 
-    def move(self, walls):
+    def move(self, walls, guns):
         keys = pyg.key.get_pressed()
         if not self.state['moving']:
             if keys[pyg.K_w]:
@@ -125,12 +136,21 @@ class Player2(pyg.sprite.Sprite):
             self.direction = [0, 0]
             self.state['moving'] = False
             break
+        
+        collide_guns = pyg.sprite.spritecollide(self, guns, False)
+        for collide in collide_guns:
+            self.direction = [0, 0]
+            self.state['moving'] = False
 # ate aqui
 
-    def collision(self, walls):
+    def collision(self, walls, guns):
         self.rect.move_ip(self.direction[0] * self.speed, self.direction[1] * self.speed)
         print('player position:', self.rect.topleft)
         collide_walls = pyg.sprite.spritecollide(self, walls, False)
+        collide_guns = pyg.sprite.spritecollide(self, guns, False)
+        for collide in collide_guns:
+            self.direction = [0, 0]
+            self.state['moving'] = False
         for collide in collide_walls:
             print('wall position:', collide.rect.topleft)
             self.rect.move_ip(-self.direction[0] * self.speed, -self.direction[1] * self.speed)

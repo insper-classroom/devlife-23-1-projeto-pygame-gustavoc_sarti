@@ -43,6 +43,7 @@ class Game:
         self.lasers_x = pygame.sprite.Group()
         self.lasers_y = pygame.sprite.Group()
         self.sprites = pygame.sprite.Group()
+        self.guns = pygame.sprite.Group()
         self.map = MAP1
         self.mapa()
         self.timer = Timer()
@@ -79,11 +80,11 @@ class Game:
                 if column == '-':
                     Laser_x((x, y), self.lasers_x)
                 if column == '8':
-                    Gun_x((x, y), self.sprites)
+                    Gun_x((x, y), self.guns)
                 if column == 'I':
                     Laser_y((x, y), self.lasers_y)
                 if column == 'L':
-                    Gun_y((x, y), self.sprites)
+                    Gun_y((x, y), self.guns)
                 if column == 'D':
                     Diamond((x, y), self.sprites)
 
@@ -94,6 +95,7 @@ class Game:
         self.players.draw(self.window)
         self.lasers_x.draw(self.window)
         self.lasers_y.draw(self.window)
+        self.guns.draw(self.window)
         #GPT + stackoverflow
         self.timer.clock.tick(100)
         time_text = self.timer.get_time_string()
@@ -122,8 +124,8 @@ class Game:
                 self.mapa()
                 self.gameover.reset = False
             if self.timer.time():
-                self.player1.move(self.walls)
-                self.player2.move(self.walls)
+                self.player1.move(self.walls, self.guns)
+                self.player2.move(self.walls, self.guns)
                 self.desenha()
             else:
                 self.gameover.desenha_gameover()
