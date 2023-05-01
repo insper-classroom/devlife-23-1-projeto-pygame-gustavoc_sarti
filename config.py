@@ -3,7 +3,7 @@ import pygame
 SCREEN_HEIGHT = 969
 SCREEN_WIDTH = 1420
 
-TIMER = 1000
+TIMER = 2500
 
 star = pygame.image.load('assets/images/props/star_vector.png')
 null_star = pygame.image.load('assets/images/props/null_star.png')
