@@ -55,25 +55,9 @@ class Player1(pyg.sprite.Sprite):
         collide_guns = pyg.sprite.spritecollide(self, guns, False)
         for collide in collide_guns:
             self.direction = [0, 0]
-            self.state['moving'] = False
+            self.state['moving'] = False    
 # ate aqui
 
-    def collision(self, walls, guns):
-        self.rect.move_ip(self.direction[0] * self.speed, self.direction[1] * self.speed)
-        print('player position:', self.rect.topleft)
-        collide_walls = pyg.sprite.spritecollide(self, walls, False)
-        collide_guns = pyg.sprite.spritecollide(self, guns, False)
-        for collide in collide_guns:
-            self.direction = [0, 0]
-            self.state['moving'] = False
-        for collide in collide_walls:
-            print('wall position:', collide.rect.topleft)
-            self.rect.move_ip(-self.direction[0] * self.speed, -self.direction[1] * self.speed)
-            self.direction = [0, 0]
-            self.state['moving'] = False
-            return True
-        return False
-    
     #Função responsavel por realizar a troca de sprites do player ao se movimentar
     def animation(self):
         if pyg.time.get_ticks() <=  self.timer + 200:
@@ -143,22 +127,6 @@ class Player2(pyg.sprite.Sprite):
             self.state['moving'] = False
 # ate aqui
 
-    def collision(self, walls, guns):
-        self.rect.move_ip(self.direction[0] * self.speed, self.direction[1] * self.speed)
-        print('player position:', self.rect.topleft)
-        collide_walls = pyg.sprite.spritecollide(self, walls, False)
-        collide_guns = pyg.sprite.spritecollide(self, guns, False)
-        for collide in collide_guns:
-            self.direction = [0, 0]
-            self.state['moving'] = False
-        for collide in collide_walls:
-            print('wall position:', collide.rect.topleft)
-            self.rect.move_ip(-self.direction[0] * self.speed, -self.direction[1] * self.speed)
-            self.direction = [0, 0]
-            self.state['moving'] = False
-            return True
-        return False
-    
     #Função responsavel por realizar a troca de sprites do player ao se movimentar
     def animation(self):
         if pyg.time.get_ticks() <=  self.timer + 200:

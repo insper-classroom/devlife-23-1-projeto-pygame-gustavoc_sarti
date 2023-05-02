@@ -61,6 +61,7 @@ class Level3:
                 
         functions.player_hit(self)
         functions.laser_break(self)
+        functions.won(self)
 
         return True
     

@@ -27,3 +27,8 @@ def player_hit(self):
     lasered_y = pygame.sprite.groupcollide(self.players, self.lasers_y, False, False, pygame.sprite.collide_rect)
     if lasered_x or lasered_y:
         self.defeat = True
+    
+def won(self):
+    colide_diamond = pygame.sprite.groupcollide(self.players, self.diamond, False, False, pygame.sprite.collide_rect)
+    if colide_diamond:
+        self.victory = True
