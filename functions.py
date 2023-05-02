@@ -61,3 +61,8 @@ def clique_sair(self,SCREEN_WIDTH,SCREEN_HEIGHT):
                 return True
         else:
             return False
+        
+def won(self):
+    colide_diamond = pygame.sprite.groupcollide(self.players, self.diamond, False, False, pygame.sprite.collide_rect)
+    if colide_diamond:
+        self.victory = True

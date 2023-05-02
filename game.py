@@ -39,7 +39,7 @@ class Timer:
 #Jogo
 class Game:
     def __init__(self):
-        #Init do jogo
+        #construtor do jogo
         pygame.init()
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.players = pygame.sprite.Group()
@@ -48,6 +48,7 @@ class Game:
         self.lasers_y = pygame.sprite.Group()
         self.sprites = pygame.sprite.Group()
         self.guns = pygame.sprite.Group()
+        self.diamond = pygame.sprite.Group()
         self.map = MAP1
         self.mapa()
         self.timer = Timer(TIMER1)
@@ -63,7 +64,6 @@ class Game:
         self.win_sound = pygame.mixer.Sound('assets/sounds/sounds_misc/ogg/victory_music.ogg')
         self.win_sound.set_volume(0.1)
 
-
         #Init do menu
         #Configura os botões
         self.button = pygame.image.load('assets/images/menu/button_unselected.jpg')
@@ -71,8 +71,6 @@ class Game:
         self.button = pygame.transform.scale(self.button, (240, 80))
         self.button_victory = pygame.transform.scale(self.button, (240, 80))
         self.button_width, self.button_height = self.button.get_size()
-
-
 
         #Configura as imagens de fundo
         background = pygame.image.load('assets/images/menu/bank-pygame.png')
@@ -86,7 +84,7 @@ class Game:
         self.fonte = pygame.font.Font(self.fonte_padrao, 45)
         self.fonte_titulo = pygame.font.Font(self.fonte_padrao, 100)
         self.titulo = self.fonte_titulo.render('GENIUS HEIST', True, (0,0,0))
-        self.titulo_win = self.fonte.render('Você Escapou!', True, (0, 0, 0))
+        self.titulo_win = self.fonte.render('Você Escapou!', True, (0,0,0))
 
     def atualiza_estado(self):
         self.mouse_pos = pygame.mouse.get_pos()
@@ -100,6 +98,7 @@ class Game:
 
                 if functions.clique_tutorial(self,SCREEN_WIDTH,SCREEN_HEIGHT):
                     return False
+                
                 if functions.clique_sair(self,SCREEN_WIDTH,SCREEN_HEIGHT):
                     pygame.quit()
                     sys.exit()
@@ -110,6 +109,10 @@ class Game:
 
         functions.player_hit(self)
         functions.laser_break(self)
+        functions.won(self)
+
+        if self.victory:
+            print('victory')
 
         return True
     
@@ -140,7 +143,7 @@ class Game:
                 if column == 'L':
                     Gun_y((x, y), self.guns)
                 if column == 'D':
-                    Diamond((x, y), self.sprites)
+                    Diamond((x, y), self.diamond)
 
     #Função de RESET, serve para resetar TODAS as variaveis(init) de toda a classe e funções para assim reiniciar o jogo.
     def reset(self):
@@ -150,6 +153,7 @@ class Game:
         self.lasers_y = pygame.sprite.Group()
         self.sprites = pygame.sprite.Group()
         self.guns = pygame.sprite.Group()
+        self.diamond = pygame.sprite.Group()
         if self.nivel[self.atual] == 'nivel1':
             self.map = MAP2
             self.timer = Timer(TIMER2)
@@ -171,6 +175,7 @@ class Game:
             self.lasers_x.draw(self.window)
             self.lasers_y.draw(self.window)
             self.guns.draw(self.window)
+            self.diamond.draw(self.window)
             #GPT + stackoverflow
             self.timer.clock.tick(100)
             time_text = self.timer.get_time_string()
