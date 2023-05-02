@@ -9,7 +9,7 @@ import functions
 class Timer:
     def __init__(self):
         self.clock = pygame.time.Clock()
-        self.start = TIMER
+        self.start = TIMER3
         self.clock.tick(100)
 
     def time(self):
@@ -27,9 +27,9 @@ class Timer:
     #----
     def get_score(self):
         remaining_time = max(0, self.start)
-        if remaining_time > TIMER//2:
+        if remaining_time > TIMER3//2:
             score = [1,1,1]
-        elif remaining_time > TIMER//4:
+        elif remaining_time > TIMER3//4:
             score = [1,1]
         else:
             score = [1]
@@ -48,6 +48,7 @@ class Level3:
         self.lasers_y = pygame.sprite.Group()
         self.sprites = pygame.sprite.Group()
         self.guns = pygame.sprite.Group()
+        self.diamond = pygame.sprite.Group()
         self.map = MAP3
         self.mapa()
         self.timer = Timer()
@@ -92,7 +93,7 @@ class Level3:
                 if column == 'L':
                     Gun_y((x, y), self.guns)
                 if column == 'D':
-                    Diamond((x, y), self.sprites)
+                    Diamond((x, y), self.diamond)
 
     def reset(self):
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -120,6 +121,7 @@ class Level3:
         self.lasers_x.draw(self.window)
         self.lasers_y.draw(self.window)
         self.guns.draw(self.window)
+        self.diamond.draw(self.window)
         #GPT + stackoverflow
         self.timer.clock.tick(100)
         time_text = self.timer.get_time_string()

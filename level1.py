@@ -10,7 +10,7 @@ import functions
 class Timer:
     def __init__(self):
         self.clock = pygame.time.Clock()
-        self.start = TIMER
+        self.start = TIMER1
         self.clock.tick(100)
 
     def time(self):
@@ -28,9 +28,9 @@ class Timer:
     #----
     def get_score(self):
         remaining_time = max(0, self.start)
-        if remaining_time > TIMER//2:
+        if remaining_time > TIMER1//2:
             score = [1,1,1]
-        elif remaining_time > TIMER//4:
+        elif remaining_time > TIMER1//4:
             score = [1,1]
         else:
             score = [1]
@@ -100,7 +100,6 @@ class Level1:
     def reset(self):
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.gameover = gameover.Gameover()
-        self.level2 = level2.Level2
         self.players = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
         self.lasers_x = pygame.sprite.Group()
@@ -151,4 +150,5 @@ class Level1:
                 self.gameover.start()
                 self.reset()
             if self.victory:
+                print("VICTORY")
                 break

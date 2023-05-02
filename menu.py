@@ -13,7 +13,7 @@ class Menu:
         pygame.init()
         self.level1 = level1.Level1()
         self.level2 = level2.Level2()
-        # self.level3 = level3.Level3()
+        self.level3 = level3.Level3()
         self.win = win.Win()
         pygame.display.set_caption("Genius Heist")
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
