@@ -28,40 +28,6 @@ def player_hit(self):
     if lasered_x or lasered_y:
         self.defeat = True
 
-#Codigo da colisao com botões DO MENU
-def clique_jogar(self,SCREEN_WIDTH,SCREEN_HEIGHT):
-        if (
-            (SCREEN_WIDTH - 240) // 2 <= self.mouse_pos[0] and 
-            self.mouse_pos[0] <= (SCREEN_WIDTH - 240) // 2 + 240 and
-            (SCREEN_HEIGHT - (len(self.botoes) * (self.button_height + 20))) // 2 <= self.mouse_pos[1] and
-            self.mouse_pos[1] <= (SCREEN_HEIGHT - (len(self.botoes) * (self.button_height + 20))) // 2 + self.button_height
-            ):
-                return True
-        else:
-            return False
-        
-def clique_tutorial(self,SCREEN_WIDTH,SCREEN_HEIGHT):
-        if (
-            (SCREEN_WIDTH - 240) // 2 <= self.mouse_pos[0] and 
-            self.mouse_pos[0] <= (SCREEN_WIDTH - 240) // 2 + 240 and
-            (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 + (80 + 50) <= self.mouse_pos[1] and
-            self.mouse_pos[1] <= (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 + 2 * (80 + 50)
-            ):
-                return True
-        else:
-            return False
-        
-def clique_sair(self,SCREEN_WIDTH,SCREEN_HEIGHT):
-        if (
-            (SCREEN_WIDTH - 240) // 2 <= self.mouse_pos[0] and 
-            self.mouse_pos[0] <= (SCREEN_WIDTH - 240) // 2 + 240 and
-            (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 + 2 * (80 + 50) <= self.mouse_pos[1] and
-            self.mouse_pos[1] <= (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 + 3 * (80 + 50)
-            ):
-                return True
-        else:
-            return False
-
 #Funcao da vitoria     
 def won(self):
     colide_diamond = pygame.sprite.groupcollide(self.players, self.diamond, False, False, pygame.sprite.collide_rect)
@@ -69,11 +35,12 @@ def won(self):
         self.victory = True
 
 #Função responsavel por criar os botões do jogo
-def cria_botoes(self, SCREEN_WIDTH, SCREEN_HEIGHT, botoes_desejados):
+def cria_botoes(self, SCREEN_WIDTH, SCREEN_HEIGHT, botoes_desejados, mouse_x, mouse_y):
     y_start = (SCREEN_HEIGHT - (len(self.botoes) * (self.button_height + 20))) // 2
     botoes_criados = 0
     for i, label in enumerate(self.botoes):
         if label in botoes_desejados:
+            #Cria a interface grafica dos botoes
             botoes_criados += 1
             botao = self.fonte.render(label, True, (255, 255, 255))
             text_width, text_height = botao.get_size()
@@ -83,3 +50,51 @@ def cria_botoes(self, SCREEN_WIDTH, SCREEN_HEIGHT, botoes_desejados):
             y_text = y_button + (self.button_height - text_height) // 2
             self.window.blit(self.button, (x_button, y_button))
             self.window.blit(botao, (x_text, y_text))
+            self.lista_btn_criado[label] = {'cord_x': x_button, 'cord_y': y_button}
+
+
+#Codigo da colisao com botões DO MENU
+def clique_jogar(self):
+        if (
+            self.lista_btn_criado['jogar']['cord_x'] <= self.mouse_pos[0] and 
+            self.mouse_pos[0] <= self.lista_btn_criado['jogar']['cord_x'] + self.button_width and
+            self.lista_btn_criado['jogar']['cord_y'] <= self.mouse_pos[1] and
+            self.mouse_pos[1] <= self.lista_btn_criado['jogar']['cord_y'] + self.button_height
+            ) or (
+            self.lista_btn_criado['restart']['cord_x'] <= self.mouse_pos[0] and 
+            self.mouse_pos[0] <= self.lista_btn_criado['restart']['cord_x'] + self.button_width and
+            self.lista_btn_criado['restart']['cord_y'] <= self.mouse_pos[1] and
+            self.mouse_pos[1] <= self.lista_btn_criado['restart']['cord_y'] + self.button_height
+            ):
+            self.reset()
+            pygame.mixer.music.play(-1)
+            self.atual = 1
+
+        
+def clique_tutorial(self):
+        if (
+            self.lista_btn_criado['tutorial']['cord_x'] <= self.mouse_pos[0] and 
+            self.mouse_pos[0] <= self.lista_btn_criado['tutorial']['cord_x'] + self.button_width and
+            self.lista_btn_criado['tutorial']['cord_y'] <= self.mouse_pos[1] and
+            self.mouse_pos[1] <= self.lista_btn_criado['tutorial']['cord_y'] + self.button_height
+            ):
+            self.atual = 6
+        
+def clique_sair(self):
+        if (
+            self.lista_btn_criado['sair']['cord_x'] <= self.mouse_pos[0] and 
+            self.mouse_pos[0] <= self.lista_btn_criado['sair']['cord_x'] + self.button_width and
+            self.lista_btn_criado['sair']['cord_y'] <= self.mouse_pos[1] and
+            self.mouse_pos[1] <= self.lista_btn_criado['sair']['cord_y'] + self.button_height
+            ):
+            return False
+        
+#Função do botao da tela de vitoria
+def clique_menu(self):
+        if (
+            self.lista_btn_criado['MENU!']['cord_x'] <= self.mouse_pos[0] and 
+            self.mouse_pos[0] <= self.lista_btn_criado['MENU!']['cord_x'] + self.button_width and
+            self.lista_btn_criado['MENU!']['cord_y'] <= self.mouse_pos[1] and
+            self.mouse_pos[1] <= self.lista_btn_criado['MENU!']['cord_y'] + self.button_height
+            ):
+            self.atual = 0
