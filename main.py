@@ -1,4 +1,4 @@
-import menu
+import game
 
-menu = menu.Menu()
-menu.start() 
+game = game.Game()
+game.start() 

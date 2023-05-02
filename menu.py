@@ -8,20 +8,6 @@ import pygame
 class Menu:
     #Inicializa os elementos graficos do menu.
     def __init__(self,):
-        #Inicialização basica
-        pygame.init()
-        self.level1 = level1.Level1()
-        self.level2 = level2.Level2()
-        self.level3 = level3.Level3()
-        self.win = win.Win()
-        pygame.display.set_caption("Genius Heist")
-        self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-
-        #Start music
-        pygame.mixer.music.load('assets/sounds/sounds_misc/ogg/background_music.ogg')
-        pygame.mixer.music.play(-1)
-        pygame.mixer.music.set_volume(0.08)
-
         #Configura os botões
         self.button = pygame.image.load('assets/images/menu/button_unselected.jpg')
         self.button = pygame.transform.scale(self.button, (240, 80))
