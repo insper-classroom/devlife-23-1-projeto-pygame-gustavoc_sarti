@@ -95,7 +95,8 @@ class Game:
         self.mouse_pos = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return False
+                pygame.quit()
+                sys.exit()
             
             if event.type == pygame.MOUSEBUTTONUP:
                 if self.nivel[self.atual] == 'menu':
@@ -119,8 +120,6 @@ class Game:
         functions.player_hit(self)
         functions.laser_break(self)
         functions.won(self)
-
-    
         return True
     
     #Cria o mapa do jogo
