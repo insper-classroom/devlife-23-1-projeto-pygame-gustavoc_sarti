@@ -19,7 +19,7 @@ nav {
     width: 100vw;
     background-color: black;
     height: 6vh;
-    background: linear-gradient(to bottom right, #00264d, #990000);
+    background: #000;
   }
   
   .navbar {
@@ -87,7 +87,7 @@ nav {
 }
 
 .landing-page h5 {
-    margin-right: 18vw;
+    margin-right: 0vw;
     text-align: center;
 }
 
@@ -100,7 +100,7 @@ nav {
 /* Apresentação */
 .main-page {
     height: 100vh;
-    background-image: url('/assets/images/site_images/bg.png');
+    background-image: url('site_images/bg.png');
 }
 
 .apresentacao {
@@ -203,7 +203,7 @@ nav {
 .galeria {
     padding-top: 1%;
     background: linear-gradient(to bottom right, #432371, #990000);
-    height: 100vh;
+    height: 120vh;
 }
 
 .fotos {
@@ -218,6 +218,11 @@ nav {
 .img-galeria {
     padding-left: 1%;
     padding-right: 1%;
+    height: 30vh;
+}
+
+video {
+    width: 25%;
     height: 30vh;
 }
 
@@ -252,10 +257,38 @@ nav {
     margin-top: 15%;
 }
 
+/* Dev Log */
+.Dev-Log{
+    padding-top: 1%;
+    height: 100vh;
+    background: linear-gradient(to bottom right, #000000, #f8a902);
+    text-align: center;
+}
+
+.split-devlog {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    display: flex;
+    margin-left: 35vw ;
+}
+
+.date {
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.log {
+    text-align: justify;
+    border: 1px solid white;
+    font-weight: bold;
+    margin-left: 1vw ;
+    padding: 1%;
+}
+
 /* Baixar */
 .dwnld {
     padding-top: 1%;
-    background-color: black;
+    background: linear-gradient(to bottom right, #f8a902, #133a94);
     height: 50vh;
     text-align: center;
 }

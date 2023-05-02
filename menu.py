@@ -1,6 +1,10 @@
 from config import *
 import level1
+import level2
+import level3
+import win
 import pygame
+
 
 class Menu:
     #Inicializa os elementos graficos do menu.
@@ -8,13 +12,16 @@ class Menu:
         #Inicialização basica
         pygame.init()
         self.level1 = level1.Level1()
+        self.level2 = level2.Level2()
+        self.level3 = level3.Level3()
+        self.win = win.Win()
         pygame.display.set_caption("Genius Heist")
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
         #Start music
         pygame.mixer.music.load('assets/sounds/sounds_misc/ogg/background_music.ogg')
         pygame.mixer.music.play(-1)
-        pygame.mixer.music.set_volume(0.08)
+        pygame.mixer.music.set_volume(0.069)
 
         #Configura os botões
         self.button = pygame.image.load('assets/images/menu/button_unselected.jpg')
@@ -88,7 +95,6 @@ class Menu:
         else:
             return False
 
-
     #Atualiza as informações do menu conforme o usuario interagir com a tela.
     def atualiza_estado_menu(self):
         self.mouse_pos = pygame.mouse.get_pos()
@@ -98,7 +104,10 @@ class Menu:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.clique_jogar():
                     self.level1.start()
-                    return False
+                    self.level2.start()
+                    self.level3.start()
+                    self.win.start()
+
                 if self.clique_tutorial():
                     return False
                 if self.clique_sair():
@@ -109,4 +118,3 @@ class Menu:
     def start(self):
         while self.atualiza_estado_menu():
             self.desenha_menu()
-

@@ -55,14 +55,7 @@ class Player1(pyg.sprite.Sprite):
         collide_guns = pyg.sprite.spritecollide(self, guns, False)
         for collide in collide_guns:
             self.direction = [0, 0]
-            self.state['moving'] = False
-
-    def won(self, diamond):
-        collide_diamond = pyg.sprite.spritecollide(self, diamond, False)
-        if len(collide_diamond) > 0:
-            return True
-        return False
-
+            self.state['moving'] = False    
 # ate aqui
 
     #Função responsavel por realizar a troca de sprites do player ao se movimentar
@@ -132,14 +125,8 @@ class Player2(pyg.sprite.Sprite):
         for collide in collide_guns:
             self.direction = [0, 0]
             self.state['moving'] = False
-    
-    def won(self, diamond):
-        collide_diamond = pyg.sprite.spritecollide(self, diamond, False)
-        if len(collide_diamond) > 0:
-            return True
-        return False
 # ate aqui
-    
+
     #Função responsavel por realizar a troca de sprites do player ao se movimentar
     def animation(self):
         if pyg.time.get_ticks() <=  self.timer + 200:

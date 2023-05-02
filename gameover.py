@@ -12,6 +12,7 @@ class Gameover:
         self.titulo = self.fonte.render('Game Over', True, (255, 255, 255))
         self.loss_sound = pygame.mixer.Sound('assets/sounds/sounds_misc/ogg/defeat.ogg')
         self.loss_sound.set_volume(0.1)
+        self.reset = False
 
     def desenha_gameover(self):
         self.window.fill((0, 0, 0))
@@ -74,4 +75,7 @@ class Gameover:
         pygame.mixer.music.stop()
         self.loss_sound.play()
         while self.atualiza_estado():
+            if self.reset == True:
+                 self.reset = False
+                 break
             self.desenha_gameover()
