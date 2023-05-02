@@ -55,7 +55,7 @@ class Game:
         
         self.defeat = False
         self.victory = False
-        self.nivel = ['menu','nivel1','nivel2','nivel3', 'win_screen', 'game_over']
+        self.nivel = ['menu','nivel1','nivel2','nivel3', 'win_screen', 'game_over', 'tutorial']
         self.atual = 0
         #Start music
         pygame.mixer.music.load('assets/sounds/sounds_misc/ogg/background_music.ogg')
@@ -74,6 +74,7 @@ class Game:
         self.button = pygame.transform.scale(self.button, (240, 80))
         self.button_victory = pygame.transform.scale(self.button, (240, 80))
         self.button_width, self.button_height = self.button.get_size()
+        self.lista_btn_criado = {}
 
         #Configura as imagens de fundo
         background = pygame.image.load('assets/images/menu/bank-pygame.png')
@@ -94,22 +95,26 @@ class Game:
         self.mouse_pos = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN and self.nivel[self.atual] == 'menu':
-                if functions.clique_jogar(self,SCREEN_WIDTH,SCREEN_HEIGHT):
-                    self.atual +=1
+                return False
+            
+            if event.type == pygame.MOUSEBUTTONUP:
+                if self.nivel[self.atual] == 'menu':
+                    functions.clique_jogar(self)
+                    functions.clique_tutorial(self)
+                    functions.clique_sair(self)
+                    #Lista deve ser constantemente resetada, para evitar conflito entre botões de mesmo nome
+                    self.lista_btn_criado = {}
 
-                if functions.clique_tutorial(self,SCREEN_WIDTH,SCREEN_HEIGHT):
-                    return False
-                
-                if functions.clique_sair(self,SCREEN_WIDTH,SCREEN_HEIGHT):
-                    pygame.quit()
-                    sys.exit()
+                if self.nivel[self.atual] == 'game_over':
+                    functions.clique_jogar(self)
+                    functions.clique_sair(self)
+                    #Lista deve ser constantemente resetada, para evitar conflito entre botões de mesmo nome
+                    self.lista_btn_criado = {}
 
-            if event.type == pygame.MOUSEBUTTONDOWN and self.nivel[self.atual] == 'menu':
-                if functions.clique_jogar(self,SCREEN_WIDTH,SCREEN_HEIGHT):
-                    self.atual = 0
+                if self.nivel[self.atual] == 'win_screen':
+                    functions.clique_menu(self)
+                    #Lista deve ser constantemente resetada, para evitar conflito entre botões de mesmo nome
+                    self.lista_btn_criado = {}
 
         functions.player_hit(self)
         functions.laser_break(self)
@@ -156,6 +161,9 @@ class Game:
         self.sprites = pygame.sprite.Group()
         self.guns = pygame.sprite.Group()
         self.diamond = pygame.sprite.Group()
+        if self.map == MAP3:
+            self.map = MAP1
+            self.timer = Timer(TIMER1)
         if self.nivel[self.atual] == 'nivel1':
             self.map = MAP2
             self.timer = Timer(TIMER2)
@@ -197,13 +205,13 @@ class Game:
         if self.nivel[self.atual] == 'menu':
             self.window.blit(self.background, (0, 0))
             self.window.blit(self.titulo, (350, 100))
-            functions.cria_botoes(self,SCREEN_WIDTH,SCREEN_HEIGHT,['jogar','tutorial','sair'])
+            functions.cria_botoes(self,SCREEN_WIDTH,SCREEN_HEIGHT,['jogar','tutorial','sair'],self.mouse_pos[0],self.mouse_pos[1])
 
         #Desenha a victory screen do jogo
         if self.nivel[self.atual] == 'win_screen':
             self.window.blit(self.background_win, (0, 0))
             self.window.blit(self.titulo_win, ((SCREEN_WIDTH - self.titulo_win.get_width()) / 2, 300))
-            functions.cria_botoes(self,SCREEN_WIDTH,SCREEN_HEIGHT,['MENU!'])
+            functions.cria_botoes(self,SCREEN_WIDTH,SCREEN_HEIGHT,['MENU!'],self.mouse_pos[0],self.mouse_pos[1])
 
 
         #Desenha a tela de game over do jogo
@@ -211,7 +219,7 @@ class Game:
             self.window.fill((0, 0, 0))
             self.window.blit(self.titulo_game_over, ((SCREEN_WIDTH - self.titulo_game_over.get_width()) // 2, 100))
             self.button_width, self.button_height = self.button.get_size()
-            functions.cria_botoes(self,SCREEN_WIDTH,SCREEN_HEIGHT,['restart','sair'])
+            functions.cria_botoes(self,SCREEN_WIDTH,SCREEN_HEIGHT,['restart','sair'],self.mouse_pos[0],self.mouse_pos[1])
 
                 # self.resultado = self.fonte.render(f'Voce conseguiu {score} estrelas', True, (255,255,255))
                 # self.window.blit(self.resultado)
