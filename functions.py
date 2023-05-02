@@ -60,11 +60,6 @@ def clique_jogar(self):
             self.mouse_pos[0] <= self.lista_btn_criado['jogar']['cord_x'] + self.button_width and
             self.lista_btn_criado['jogar']['cord_y'] <= self.mouse_pos[1] and
             self.mouse_pos[1] <= self.lista_btn_criado['jogar']['cord_y'] + self.button_height
-            ) or (
-            self.lista_btn_criado['restart']['cord_x'] <= self.mouse_pos[0] and 
-            self.mouse_pos[0] <= self.lista_btn_criado['restart']['cord_x'] + self.button_width and
-            self.lista_btn_criado['restart']['cord_y'] <= self.mouse_pos[1] and
-            self.mouse_pos[1] <= self.lista_btn_criado['restart']['cord_y'] + self.button_height
             ):
             self.reset()
             pygame.mixer.music.play(-1)
@@ -87,7 +82,7 @@ def clique_sair(self):
             self.lista_btn_criado['sair']['cord_y'] <= self.mouse_pos[1] and
             self.mouse_pos[1] <= self.lista_btn_criado['sair']['cord_y'] + self.button_height
             ):
-            return False
+            self.quit = True
         
 #Função do botao da tela de vitoria
 def clique_menu(self):
@@ -98,3 +93,14 @@ def clique_menu(self):
             self.mouse_pos[1] <= self.lista_btn_criado['MENU!']['cord_y'] + self.button_height
             ):
             self.atual = 0
+
+def restart(self):
+        if (
+            self.lista_btn_criado['restart']['cord_x'] <= self.mouse_pos[0] and 
+            self.mouse_pos[0] <= self.lista_btn_criado['restart']['cord_x'] + self.button_width and
+            self.lista_btn_criado['restart']['cord_y'] <= self.mouse_pos[1] and
+            self.mouse_pos[1] <= self.lista_btn_criado['restart']['cord_y'] + self.button_height
+            ):
+            self.reset()
+            pygame.mixer.music.play(-1)
+            self.atual = 1
