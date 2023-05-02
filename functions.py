@@ -26,7 +26,7 @@ def player_hit(self):
     lasered_x = pygame.sprite.groupcollide(self.players, self.lasers_x, False, False, pygame.sprite.collide_rect)
     lasered_y = pygame.sprite.groupcollide(self.players, self.lasers_y, False, False, pygame.sprite.collide_rect)
     if lasered_x or lasered_y:
-        self.victory = True
+        self.defeat = True
 
 #Codigo da colisao com botões DO MENU
 def clique_jogar(self,SCREEN_WIDTH,SCREEN_HEIGHT):
@@ -61,3 +61,19 @@ def clique_sair(self,SCREEN_WIDTH,SCREEN_HEIGHT):
                 return True
         else:
             return False
+
+#Função responsavel por criar os botões do jogo
+def cria_botoes(self, SCREEN_WIDTH, SCREEN_HEIGHT, botoes_desejados):
+    y_start = (SCREEN_HEIGHT - (len(self.botoes) * (self.button_height + 20))) // 2
+    botoes_criados = 0
+    for i, label in enumerate(self.botoes):
+        if label in botoes_desejados:
+            botoes_criados += 1
+            botao = self.fonte.render(label, True, (255, 255, 255))
+            text_width, text_height = botao.get_size()
+            x_button = (SCREEN_WIDTH - self.button_width) // 2
+            y_button = y_start + botoes_criados * (self.button_height + 50)
+            x_text = (SCREEN_WIDTH - text_width) // 2
+            y_text = y_button + (self.button_height - text_height) // 2
+            self.window.blit(self.button, (x_button, y_button))
+            self.window.blit(botao, (x_text, y_text))
