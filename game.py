@@ -115,9 +115,7 @@ class Game:
         functions.laser_break(self)
         functions.won(self)
 
-        if self.victory:
-            print('victory')
-
+    
         return True
     
     #Cria o mapa do jogo

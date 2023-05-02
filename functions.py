@@ -29,38 +29,35 @@ def player_hit(self):
         self.defeat = True
 
 #Codigo da colisao com botões DO MENU
-def clique_jogar(self,SCREEN_WIDTH,SCREEN_HEIGHT):
-        if (
-            (SCREEN_WIDTH - 240) // 2 <= self.mouse_pos[0] and 
-            self.mouse_pos[0] <= (SCREEN_WIDTH - 240) // 2 + 240 and
-            (SCREEN_HEIGHT - (len(self.botoes) * (self.button_height + 20))) // 2 <= self.mouse_pos[1] and
-            self.mouse_pos[1] <= (SCREEN_HEIGHT - (len(self.botoes) * (self.button_height + 20))) // 2 + self.button_height
-            ):
-                return True
-        else:
-            return False
-        
-def clique_tutorial(self,SCREEN_WIDTH,SCREEN_HEIGHT):
-        if (
-            (SCREEN_WIDTH - 240) // 2 <= self.mouse_pos[0] and 
-            self.mouse_pos[0] <= (SCREEN_WIDTH - 240) // 2 + 240 and
-            (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 + (80 + 50) <= self.mouse_pos[1] and
-            self.mouse_pos[1] <= (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 + 2 * (80 + 50)
-            ):
-                return True
-        else:
-            return False
-        
-def clique_sair(self,SCREEN_WIDTH,SCREEN_HEIGHT):
-        if (
-            (SCREEN_WIDTH - 240) // 2 <= self.mouse_pos[0] and 
-            self.mouse_pos[0] <= (SCREEN_WIDTH - 240) // 2 + 240 and
-            (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 + 2 * (80 + 50) <= self.mouse_pos[1] and
-            self.mouse_pos[1] <= (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 + 3 * (80 + 50)
-            ):
-                return True
-        else:
-            return False
+def clique_jogar(self, SCREEN_WIDTH, SCREEN_HEIGHT):
+    button_top = (SCREEN_HEIGHT - (3 * (self.button_height + 20))) // 2
+    button_left = (SCREEN_WIDTH - 240) // 2
+    if (button_left <= self.mouse_pos[0] <= button_left + 240 and
+            button_top <= self.mouse_pos[1] <= button_top + self.button_height):
+        return True
+    else:
+        return False
+
+
+def clique_tutorial(self, SCREEN_WIDTH, SCREEN_HEIGHT):
+    button_top = (SCREEN_HEIGHT - (3 * (80 + 50))) // 2 + (80 + 50)
+    button_left = (SCREEN_WIDTH - 240) // 2
+    if (button_left <= self.mouse_pos[0] <= button_left + 240 and
+            button_top <= self.mouse_pos[1] <= button_top + self.button_height):
+        return True
+    else:
+        return False
+
+
+def clique_sair(self, SCREEN_WIDTH, SCREEN_HEIGHT):
+    button_top = (SCREEN_HEIGHT - (3 * (80 + 50))) // 2 + 2 * (80 + 50)
+    button_left = (SCREEN_WIDTH - 240) // 2
+    if (button_left <= self.mouse_pos[0] <= button_left + 240 and
+            button_top <= self.mouse_pos[1] <= button_top + self.button_height):
+        return True
+    else:
+        return False
+
 
 #Funcao da vitoria     
 def won(self):
