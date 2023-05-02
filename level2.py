@@ -48,6 +48,7 @@ class Level2:
         self.lasers_y = pygame.sprite.Group()
         self.sprites = pygame.sprite.Group()
         self.guns = pygame.sprite.Group()
+        self.diamond = pygame.sprite.Group()
         self.map = MAP2
         self.mapa()
         self.timer = Timer()
@@ -61,6 +62,8 @@ class Level2:
 
         functions.player_hit(self)
         functions.laser_break(self)
+        functions.won(self)
+
 
         return True
     

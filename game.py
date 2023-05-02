@@ -1,4 +1,5 @@
 import pygame
+import sys
 from sprites.player import *
 from config import *
 from sprites.map_content import *
@@ -6,9 +7,9 @@ import functions
 
 #Timer
 class Timer:
-    def __init__(self):
+    def __init__(self, timer):
         self.clock = pygame.time.Clock()
-        self.start = TIMER
+        self.start = timer
         self.clock.tick(100)
 
     def time(self):
@@ -26,9 +27,9 @@ class Timer:
     #----
     def get_score(self):
         remaining_time = max(0, self.start)
-        if remaining_time > TIMER//2:
+        if remaining_time > self.start//2:
             score = [1,1,1]
-        elif remaining_time > TIMER//4:
+        elif remaining_time > self.start//4:
             score = [1,1]
         else:
             score = [1]
@@ -38,7 +39,7 @@ class Timer:
 #Jogo
 class Game:
     def __init__(self):
-        #Init do jogo
+        #construtor do jogo
         pygame.init()
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.players = pygame.sprite.Group()
@@ -47,9 +48,11 @@ class Game:
         self.lasers_y = pygame.sprite.Group()
         self.sprites = pygame.sprite.Group()
         self.guns = pygame.sprite.Group()
+        self.diamond = pygame.sprite.Group()
         self.map = MAP1
         self.mapa()
-        self.timer = Timer()
+        self.timer = Timer(TIMER1)
+        
         self.defeat = False
         self.victory = False
         self.nivel = ['menu','nivel1','nivel2','nivel3', 'win_screen', 'game_over']
@@ -64,7 +67,6 @@ class Game:
         self.loss_sound.set_volume(0.1)
         self.music_on = True
 
-
         #Init do menu
         #Configura os botões
         self.button = pygame.image.load('assets/images/menu/button_unselected.jpg')
@@ -72,8 +74,6 @@ class Game:
         self.button = pygame.transform.scale(self.button, (240, 80))
         self.button_victory = pygame.transform.scale(self.button, (240, 80))
         self.button_width, self.button_height = self.button.get_size()
-
-
 
         #Configura as imagens de fundo
         background = pygame.image.load('assets/images/menu/bank-pygame.png')
@@ -95,17 +95,28 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+                sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN and self.nivel[self.atual] == 'menu':
                 if functions.clique_jogar(self,SCREEN_WIDTH,SCREEN_HEIGHT):
                     self.atual +=1
 
                 if functions.clique_tutorial(self,SCREEN_WIDTH,SCREEN_HEIGHT):
                     return False
+                
                 if functions.clique_sair(self,SCREEN_WIDTH,SCREEN_HEIGHT):
                     pygame.quit()
+                    sys.exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN and self.nivel[self.atual] == 'menu':
+                if functions.clique_jogar(self,SCREEN_WIDTH,SCREEN_HEIGHT):
+                    self.atual = 0
 
         functions.player_hit(self)
         functions.laser_break(self)
+        functions.won(self)
+
+        if self.victory:
+            print('victory')
 
         return True
     
@@ -136,7 +147,7 @@ class Game:
                 if column == 'L':
                     Gun_y((x, y), self.guns)
                 if column == 'D':
-                    Diamond((x, y), self.sprites)
+                    Diamond((x, y), self.diamond)
 
     #Função de RESET, serve para resetar TODAS as variaveis(init) de toda a classe e funções para assim reiniciar o jogo.
     def reset(self):
@@ -146,12 +157,14 @@ class Game:
         self.lasers_y = pygame.sprite.Group()
         self.sprites = pygame.sprite.Group()
         self.guns = pygame.sprite.Group()
+        self.diamond = pygame.sprite.Group()
         if self.nivel[self.atual] == 'nivel1':
             self.map = MAP2
+            self.timer = Timer(TIMER2)
         if self.nivel[self.atual] == 'nivel2':
             self.map = MAP3
+            self.timer = Timer(TIMER3)
         self.mapa()
-        self.timer = Timer()
         self.defeat = False
         self.victory = False
 
@@ -166,6 +179,7 @@ class Game:
             self.lasers_x.draw(self.window)
             self.lasers_y.draw(self.window)
             self.guns.draw(self.window)
+            self.diamond.draw(self.window)
             #GPT + stackoverflow
             self.timer.clock.tick(100)
             time_text = self.timer.get_time_string()
@@ -222,7 +236,3 @@ class Game:
             if self.victory:
                 self.reset()
                 self.atual += 1
-            if self.nivel[self.atual] == 'win_screen' and self.music_on:
-                self.music_on = False
-                pygame.mixer.music.stop()
-                self.win_sound.play()

@@ -48,6 +48,7 @@ class Level1:
         self.lasers_y = pygame.sprite.Group()
         self.sprites = pygame.sprite.Group()
         self.guns = pygame.sprite.Group()
+        self.diamond = pygame.sprite.Group()
         self.map = MAP1
         self.mapa()
         self.timer = Timer()
@@ -61,6 +62,8 @@ class Level1:
 
         functions.player_hit(self)
         functions.laser_break(self)
+        functions.won(self)
+
 
         return True
     
@@ -91,7 +94,7 @@ class Level1:
                 if column == 'L':
                     Gun_y((x, y), self.guns)
                 if column == 'D':
-                    Diamond((x, y), self.sprites)
+                    Diamond((x, y), self.diamond)
 
     #Função de RESET, serve para resetar TODAS as variaveis(init) de toda a classe e funções para assim reiniciar o jogo.
     def reset(self):
@@ -104,6 +107,7 @@ class Level1:
         self.lasers_y = pygame.sprite.Group()
         self.sprites = pygame.sprite.Group()
         self.guns = pygame.sprite.Group()
+        self.diamond = pygame.sprite.Group()
         self.map = MAP1
         self.mapa()
         self.timer = Timer()
@@ -120,6 +124,7 @@ class Level1:
         self.lasers_x.draw(self.window)
         self.lasers_y.draw(self.window)
         self.guns.draw(self.window)
+        self.diamond.draw(self.window)
         #GPT + stackoverflow
         self.timer.clock.tick(100)
         time_text = self.timer.get_time_string()

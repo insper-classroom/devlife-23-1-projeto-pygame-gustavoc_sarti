@@ -62,6 +62,12 @@ def clique_sair(self,SCREEN_WIDTH,SCREEN_HEIGHT):
         else:
             return False
 
+#Funcao da vitoria     
+def won(self):
+    colide_diamond = pygame.sprite.groupcollide(self.players, self.diamond, False, False, pygame.sprite.collide_rect)
+    if colide_diamond:
+        self.victory = True
+
 #Função responsavel por criar os botões do jogo
 def cria_botoes(self, SCREEN_WIDTH, SCREEN_HEIGHT, botoes_desejados):
     y_start = (SCREEN_HEIGHT - (len(self.botoes) * (self.button_height + 20))) // 2
