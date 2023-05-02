@@ -55,6 +55,7 @@ class Game:
         
         self.defeat = False
         self.victory = False
+        self.quit = False
         self.nivel = ['menu','nivel1','nivel2','nivel3', 'win_screen', 'game_over', 'tutorial']
         self.atual = 0
         #Start music
@@ -105,13 +106,13 @@ class Game:
                     #Lista deve ser constantemente resetada, para evitar conflito entre botões de mesmo nome
                     self.lista_btn_criado = {}
 
-                if self.nivel[self.atual] == 'game_over':
+                elif self.nivel[self.atual] == 'game_over':
                     functions.clique_jogar(self)
                     functions.clique_sair(self)
                     #Lista deve ser constantemente resetada, para evitar conflito entre botões de mesmo nome
                     self.lista_btn_criado = {}
 
-                if self.nivel[self.atual] == 'win_screen':
+                elif self.nivel[self.atual] == 'win_screen':
                     functions.clique_menu(self)
                     #Lista deve ser constantemente resetada, para evitar conflito entre botões de mesmo nome
                     self.lista_btn_criado = {}
@@ -123,6 +124,8 @@ class Game:
         if self.victory:
             print('victory')
 
+        if self.quit:
+            return False
         return True
     
     #Cria o mapa do jogo
@@ -225,6 +228,12 @@ class Game:
 
                 # self.resultado = self.fonte.render(f'Voce conseguiu {score} estrelas', True, (255,255,255))
                 # self.window.blit(self.resultado)
+
+        if self.nivel[self.atual] == 'tutorial':
+            self.window.fill((0, 0, 0))
+            self.window.blit(self.titulo_game_over, ((SCREEN_WIDTH - self.titulo_game_over.get_width()) // 2, 100))
+            self.button_width, self.button_height = self.button.get_size()
+            functions.cria_botoes(self,SCREEN_WIDTH,SCREEN_HEIGHT,['restart','sair'],self.mouse_pos[0],self.mouse_pos[1])
 
 
 # alguns trechos da parte responsavel por resetar o game foi feita pelo GPT        
