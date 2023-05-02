@@ -19,7 +19,7 @@ nav {
     width: 100vw;
     background-color: black;
     height: 6vh;
-    background: linear-gradient(to bottom right, #00264d, #990000);
+    background: #000;
   }
   
   .navbar {
@@ -87,7 +87,7 @@ nav {
 }
 
 .landing-page h5 {
-    margin-right: 18vw;
+    margin-right: 0vw;
     text-align: center;
 }
 
