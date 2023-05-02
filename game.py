@@ -1,4 +1,5 @@
 import pygame
+import sys
 from sprites.player import *
 from config import *
 from sprites.map_content import *
@@ -92,6 +93,7 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+                sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN and self.nivel[self.atual] == 'menu':
                 if functions.clique_jogar(self,SCREEN_WIDTH,SCREEN_HEIGHT):
                     self.atual +=1
@@ -100,6 +102,7 @@ class Game:
                     return False
                 if functions.clique_sair(self,SCREEN_WIDTH,SCREEN_HEIGHT):
                     pygame.quit()
+                    sys.exit()
 
             if event.type == pygame.MOUSEBUTTONDOWN and self.nivel[self.atual] == 'menu':
                 if functions.clique_jogar(self,SCREEN_WIDTH,SCREEN_HEIGHT):
