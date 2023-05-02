@@ -41,6 +41,7 @@ class Timer:
 #Jogo
 class Game:
     def __init__(self):
+        #Init do jogo
         pygame.init()
         self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.players = pygame.sprite.Group()
@@ -54,20 +55,53 @@ class Game:
         self.timer = Timer()
         self.defeat = False
         self.victory = False
-        self.nivel = ['menu','nivel1','nivel2','nivel3']
+        self.nivel = ['menu','nivel1','nivel2','nivel3', 'win_screen', 'game_over']
         self.atual = 0
         #Start music
         pygame.mixer.music.load('assets/sounds/sounds_misc/ogg/background_music.ogg')
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(0.08)
+        self.win_sound = pygame.mixer.Sound('assets/sounds/sounds_misc/ogg/victory_music.ogg')
+        self.win_sound.set_volume(0.1)
 
-        self.menu = menu.Menu()
+
+        #Init do menu
+        #Configura os botões
+        self.button = pygame.image.load('assets/images/menu/button_unselected.jpg')
+        self.button_victory = pygame.image.load('assets/images/menu/button_selected.jpg')
+        self.button = pygame.transform.scale(self.button, (240, 80))
+        self.button_victory = pygame.transform.scale(self.button, (240, 80))
+        self.button_width, self.button_height = self.button.get_size()
+
+
+
+        #Configura as imagens de fundo
+        background = pygame.image.load('assets/images/menu/bank-pygame.png')
+        self.background = pygame.transform.scale(background,(1420,969))
+        background_win = pygame.image.load('assets/images/menu/win.png')
+        self.background_win = pygame.transform.scale(background_win,(1420,969))
+        
+        #Configura texto dos botões e menus
+        self.botoes = ['jogar','tutorial','sair', 'MENU!']
+        self.fonte_padrao = pygame.font.get_default_font()
+        self.fonte = pygame.font.Font(self.fonte_padrao, 45)
+        self.fonte_titulo = pygame.font.Font(self.fonte_padrao, 100)
+        self.titulo = self.fonte_titulo.render('GENIUS HEIST', True, (0,0,0))
+        self.titulo_win = self.fonte.render('Você Escapou!', True, (0, 0, 0))
 
     def atualiza_estado(self):
         self.mouse_pos = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if functions.clique_jogar(self,SCREEN_WIDTH,SCREEN_HEIGHT):
+                    self.atual +=1
+
+                if functions.clique_tutorial(self,SCREEN_WIDTH,SCREEN_HEIGHT):
+                    return False
+                if functions.clique_sair(self,SCREEN_WIDTH,SCREEN_HEIGHT):
+                    pygame.quit()
 
         functions.player_hit(self)
         functions.laser_break(self)
@@ -119,7 +153,6 @@ class Game:
         self.timer = Timer()
         self.defeat = False
         self.victory = False
-        pygame.mixer.music.play(-1)
 
 
     def desenha(self):
@@ -148,10 +181,34 @@ class Game:
         pygame.display.update()  
 
         #Desenha o main menu do jogo
-
+        if self.nivel[self.atual] == 'menu':
+            self.window.blit(self.background, (0, 0))
+            self.window.blit(self.titulo, (350, 100))
+            y_start = (SCREEN_HEIGHT - (len(self.botoes) * (self.button_height + 20))) // 2
+            for i, label in enumerate(self.botoes):
+                if label != 'MENU!':
+                    botao = self.fonte.render(label, True, (255, 255, 255))
+                    text_width, text_height = botao.get_size()
+                    x_button = (SCREEN_WIDTH - self.button_width) // 2
+                    y_button = y_start + i * (self.button_height + 50)
+                    x_text = (SCREEN_WIDTH - text_width) // 2
+                    y_text = y_button + (self.button_height - text_height) // 2
+                    self.window.blit(self.button, (x_button, y_button))
+                    self.window.blit(botao, (x_text, y_text))
 
         #Desenha a victory screen do jogo
-
+        if self.nivel[self.atual] == 'win_screen':
+            self.window.blit(self.background_win, (0, 0))
+            self.window.blit(self.titulo_win, ((SCREEN_WIDTH - self.titulo.get_width()) // 2, 100))
+            for i, label in enumerate(self.botoes):
+                if label == 'MENU!':
+                    text_surface = self.fonte.render(label, True, (255, 255, 255))
+                    text_width, text_height = text_surface.get_size()
+                    self.x_button = (SCREEN_WIDTH - self.button_width) // 2
+                    self.y_button = 300 + (self.button_height + 50)
+                    y_text = self.y_button + (self.button_height - text_height) // 2
+                    self.window.blit(self.button_victory, (self.x_button, self.y_button))
+                    self.window.blit(text_surface, ((SCREEN_WIDTH - text_width) // 2, y_text))
 
         #Desenha a tela de game over do jogo
 
@@ -160,7 +217,7 @@ class Game:
     def start(self):
         while self.atualiza_estado():
             if self.nivel[self.atual] == 'menu':
-                self.menu.desenha_menu()
+                self.desenha()
             if self.timer.time() and self.nivel[self.atual] != 'menu':
                 self.player1.move(self.walls, self.guns)
                 self.player2.move(self.walls, self.guns)
