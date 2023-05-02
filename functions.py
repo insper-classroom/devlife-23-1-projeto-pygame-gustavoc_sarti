@@ -26,9 +26,38 @@ def player_hit(self):
     lasered_x = pygame.sprite.groupcollide(self.players, self.lasers_x, False, False, pygame.sprite.collide_rect)
     lasered_y = pygame.sprite.groupcollide(self.players, self.lasers_y, False, False, pygame.sprite.collide_rect)
     if lasered_x or lasered_y:
-        self.defeat = True
-    
-def won(self):
-    colide_diamond = pygame.sprite.groupcollide(self.players, self.diamond, False, False, pygame.sprite.collide_rect)
-    if colide_diamond:
         self.victory = True
+
+#Codigo da colisao com botões DO MENU
+def clique_jogar(self,SCREEN_WIDTH,SCREEN_HEIGHT):
+        if (
+            (SCREEN_WIDTH - 240) // 2 <= self.mouse_pos[0] and 
+            self.mouse_pos[0] <= (SCREEN_WIDTH - 240) // 2 + 240 and
+            (SCREEN_HEIGHT - (len(self.botoes) * (self.button_height + 20))) // 2 <= self.mouse_pos[1] and
+            self.mouse_pos[1] <= (SCREEN_HEIGHT - (len(self.botoes) * (self.button_height + 20))) // 2 + self.button_height
+            ):
+                return True
+        else:
+            return False
+        
+def clique_tutorial(self,SCREEN_WIDTH,SCREEN_HEIGHT):
+        if (
+            (SCREEN_WIDTH - 240) // 2 <= self.mouse_pos[0] and 
+            self.mouse_pos[0] <= (SCREEN_WIDTH - 240) // 2 + 240 and
+            (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 + (80 + 50) <= self.mouse_pos[1] and
+            self.mouse_pos[1] <= (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 + 2 * (80 + 50)
+            ):
+                return True
+        else:
+            return False
+        
+def clique_sair(self,SCREEN_WIDTH,SCREEN_HEIGHT):
+        if (
+            (SCREEN_WIDTH - 240) // 2 <= self.mouse_pos[0] and 
+            self.mouse_pos[0] <= (SCREEN_WIDTH - 240) // 2 + 240 and
+            (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 + 2 * (80 + 50) <= self.mouse_pos[1] and
+            self.mouse_pos[1] <= (SCREEN_HEIGHT - (len(self.botoes) * (80 + 50))) // 2 + 3 * (80 + 50)
+            ):
+                return True
+        else:
+            return False
