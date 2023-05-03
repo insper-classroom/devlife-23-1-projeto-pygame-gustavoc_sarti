@@ -39,7 +39,18 @@ def cria_botoes(self, SCREEN_WIDTH, SCREEN_HEIGHT, botoes_desejados, mouse_x, mo
     y_start = (SCREEN_HEIGHT - (len(self.botoes) * (self.button_height + 20))) // 2
     botoes_criados = 0
     for i, label in enumerate(self.botoes):
-        if label in botoes_desejados:
+        #Criação de menu dedicada para o tutorial, visto que o botão deve estar em uma posição exata
+        if botoes_desejados == ['retornar']:
+            botao = self.fonte.render(label, True, (255, 255, 255))
+            text_width, text_height = botao.get_size()
+            x_button = (SCREEN_WIDTH - self.button_width) // 2
+            y_button = y_start + 690
+            x_text = (SCREEN_WIDTH - text_width) // 2
+            y_text = y_button + (self.button_height - text_height) // 2
+            self.window.blit(self.button, (x_button, y_button))
+            self.window.blit(botao, (x_text, y_text))
+            self.lista_btn_criado[label] = {'cord_x': x_button, 'cord_y': y_button}
+        elif label in botoes_desejados:
             #Cria a interface grafica dos botoes
             botoes_criados += 1
             botao = self.fonte.render(label, True, (255, 255, 255))
@@ -51,20 +62,6 @@ def cria_botoes(self, SCREEN_WIDTH, SCREEN_HEIGHT, botoes_desejados, mouse_x, mo
             self.window.blit(self.button, (x_button, y_button))
             self.window.blit(botao, (x_text, y_text))
             self.lista_btn_criado[label] = {'cord_x': x_button, 'cord_y': y_button}
-
-
-#Codigo da colisao com botões DO MENU
-def clique_jogar(self):
-        if (
-            self.lista_btn_criado['jogar']['cord_x'] <= self.mouse_pos[0] and 
-            self.mouse_pos[0] <= self.lista_btn_criado['jogar']['cord_x'] + self.button_width and
-            self.lista_btn_criado['jogar']['cord_y'] <= self.mouse_pos[1] and
-            self.mouse_pos[1] <= self.lista_btn_criado['jogar']['cord_y'] + self.button_height
-            ):
-            self.reset()
-            pygame.mixer.music.play(-1)
-            self.atual = 1
-
         
 def clique_tutorial(self):
         if (
@@ -74,15 +71,6 @@ def clique_tutorial(self):
             self.mouse_pos[1] <= self.lista_btn_criado['tutorial']['cord_y'] + self.button_height
             ):
             self.atual = 6
-        
-def clique_sair(self):
-        if (
-            self.lista_btn_criado['sair']['cord_x'] <= self.mouse_pos[0] and 
-            self.mouse_pos[0] <= self.lista_btn_criado['sair']['cord_x'] + self.button_width and
-            self.lista_btn_criado['sair']['cord_y'] <= self.mouse_pos[1] and
-            self.mouse_pos[1] <= self.lista_btn_criado['sair']['cord_y'] + self.button_height
-            ):
-            self.quit = True
         
 #Função do botao da tela de vitoria
 def clique_menu(self):
@@ -94,6 +82,7 @@ def clique_menu(self):
             ):
             self.atual = 0
 
+#Função de retornar dedicada para o game over
 def restart(self):
         if (
             self.lista_btn_criado['restart']['cord_x'] <= self.mouse_pos[0] and 
@@ -104,3 +93,59 @@ def restart(self):
             self.reset()
             pygame.mixer.music.play(-1)
             self.atual = 1
+
+#Função de retornar dedicada para o tutorial
+def clique_retornar(self):
+        if (
+            self.lista_btn_criado['retornar']['cord_x'] <= self.mouse_pos[0] and 
+            self.mouse_pos[0] <= self.lista_btn_criado['retornar']['cord_x'] + self.button_width and
+            self.lista_btn_criado['retornar']['cord_y'] <= self.mouse_pos[1] and
+            self.mouse_pos[1] <= self.lista_btn_criado['retornar']['cord_y'] + self.button_height
+            ):
+            self.atual = 0
+
+#Função responsavel por todas as interações de tela e botões do menu
+def botoes_menu(self):
+    if (
+        self.lista_btn_criado['jogar']['cord_x'] <= self.mouse_pos[0] and 
+        self.mouse_pos[0] <= self.lista_btn_criado['jogar']['cord_x'] + self.button_width and
+        self.lista_btn_criado['jogar']['cord_y'] <= self.mouse_pos[1] and
+        self.mouse_pos[1] <= self.lista_btn_criado['jogar']['cord_y'] + self.button_height
+        ):
+        self.reset()
+        pygame.mixer.music.play(-1)
+        self.atual = 1
+
+    elif (
+        self.lista_btn_criado['tutorial']['cord_x'] <= self.mouse_pos[0] and 
+        self.mouse_pos[0] <= self.lista_btn_criado['tutorial']['cord_x'] + self.button_width and
+        self.lista_btn_criado['tutorial']['cord_y'] <= self.mouse_pos[1] and
+        self.mouse_pos[1] <= self.lista_btn_criado['tutorial']['cord_y'] + self.button_height
+        ):
+        self.atual = 6
+        
+    elif (
+        self.lista_btn_criado['sair']['cord_x'] <= self.mouse_pos[0] and 
+        self.mouse_pos[0] <= self.lista_btn_criado['sair']['cord_x'] + self.button_width and
+        self.lista_btn_criado['sair']['cord_y'] <= self.mouse_pos[1] and
+        self.mouse_pos[1] <= self.lista_btn_criado['sair']['cord_y'] + self.button_height
+        ):
+        self.quit = True
+    
+def botoes_game_over(self):
+    if (
+        self.lista_btn_criado['restart']['cord_x'] <= self.mouse_pos[0] and 
+        self.mouse_pos[0] <= self.lista_btn_criado['restart']['cord_x'] + self.button_width and
+        self.lista_btn_criado['restart']['cord_y'] <= self.mouse_pos[1] and
+        self.mouse_pos[1] <= self.lista_btn_criado['restart']['cord_y'] + self.button_height
+        ):
+        self.reset()
+        pygame.mixer.music.play(-1)
+        self.atual = 1
+    elif (
+        self.lista_btn_criado['sair']['cord_x'] <= self.mouse_pos[0] and 
+        self.mouse_pos[0] <= self.lista_btn_criado['sair']['cord_x'] + self.button_width and
+        self.lista_btn_criado['sair']['cord_y'] <= self.mouse_pos[1] and
+        self.mouse_pos[1] <= self.lista_btn_criado['sair']['cord_y'] + self.button_height
+        ):
+        self.quit = True
