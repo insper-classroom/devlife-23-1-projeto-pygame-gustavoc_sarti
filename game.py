@@ -109,6 +109,7 @@ class Game:
 
                 elif self.nivel[self.atual] == 'game_over':
                     functions.botoes_game_over(self)
+                    self.reset()
 
                 elif self.nivel[self.atual] == 'win_screen':
                     functions.clique_menu(self)
@@ -162,13 +163,16 @@ class Game:
         self.sprites = pygame.sprite.Group()
         self.guns = pygame.sprite.Group()
         self.diamond = pygame.sprite.Group()
-        if self.map == MAP3:
+        if self.nivel[self.atual] == 'menu':
             self.map = MAP1
             self.timer = Timer(TIMER1)
-        if self.nivel[self.atual] == 'nivel1':
+        elif self.nivel[self.atual] == 'nivel3':
+            self.map = MAP1
+            self.timer = Timer(TIMER1)
+        elif self.nivel[self.atual] == 'nivel1':
             self.map = MAP2
             self.timer = Timer(TIMER2)
-        if self.nivel[self.atual] == 'nivel2':
+        elif self.nivel[self.atual] == 'nivel2':
             self.map = MAP3
             self.timer = Timer(TIMER3)
         self.mapa()
@@ -241,8 +245,8 @@ class Game:
             if self.defeat or self.timer.time() == False and self.nivel[self.atual] != 'win_screen' and self.nivel[self.atual] != 'menu' and self.nivel[self.atual] != 'game_over' and self.nivel[self.atual] != 'tutorial':
                 pygame.mixer.music.stop()
                 self.loss_sound.play()
-                self.atual = 5
                 self.reset()
+                self.atual = 5
             if self.victory:
                 self.reset()
                 self.atual += 1

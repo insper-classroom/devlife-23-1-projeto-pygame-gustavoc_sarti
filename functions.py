@@ -139,9 +139,9 @@ def botoes_game_over(self):
         self.lista_btn_criado['restart']['cord_y'] <= self.mouse_pos[1] and
         self.mouse_pos[1] <= self.lista_btn_criado['restart']['cord_y'] + self.button_height
         ):
+        self.atual = 0
         self.reset()
         pygame.mixer.music.play(-1)
-        self.atual = 1
     elif (
         self.lista_btn_criado['sair']['cord_x'] <= self.mouse_pos[0] and 
         self.mouse_pos[0] <= self.lista_btn_criado['sair']['cord_x'] + self.button_width and
