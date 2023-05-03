@@ -53,16 +53,22 @@ class Game:
         self.mapa()
         self.timer = Timer(TIMER1)
         
+        #Variaveis de controle de nivel e estado de jogo
         self.defeat = False
         self.victory = False
-        self.nivel = ['menu','nivel1','nivel2','nivel3', 'win_screen', 'game_over']
+        self.quit = False
+        self.nivel = ['menu','nivel1','nivel2','nivel3', 'win_screen', 'game_over', 'tutorial']
         self.atual = 0
+
         #Start music
         pygame.mixer.music.load('assets/sounds/sounds_misc/ogg/background_music.ogg')
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(0.08)
         self.win_sound = pygame.mixer.Sound('assets/sounds/sounds_misc/ogg/victory_music.ogg')
         self.win_sound.set_volume(0.1)
+        self.loss_sound = pygame.mixer.Sound('assets/sounds/sounds_misc/ogg/defeat.ogg')
+        self.loss_sound.set_volume(0.1)
+        self.music_on = True
 
         #Init do menu
         #Configura os botões
@@ -71,20 +77,24 @@ class Game:
         self.button = pygame.transform.scale(self.button, (240, 80))
         self.button_victory = pygame.transform.scale(self.button, (240, 80))
         self.button_width, self.button_height = self.button.get_size()
+        self.lista_btn_criado = {}
 
         #Configura as imagens de fundo
         background = pygame.image.load('assets/images/menu/bank-pygame.png')
         self.background = pygame.transform.scale(background,(1420,969))
         background_win = pygame.image.load('assets/images/menu/win.png')
         self.background_win = pygame.transform.scale(background_win,(1420,969))
+        background_tutorial = pygame.image.load('assets/images/menu/background_tutorial.jpg')
+        self.background_tutorial = pygame.transform.scale(background_tutorial,(1420,969))
         
         #Configura texto dos botões e menus
-        self.botoes = ['jogar','tutorial','sair', 'MENU!']
+        self.botoes = ['jogar','tutorial', 'restart','sair', 'MENU!', 'retornar']
         self.fonte_padrao = pygame.font.get_default_font()
         self.fonte = pygame.font.Font(self.fonte_padrao, 45)
         self.fonte_titulo = pygame.font.Font(self.fonte_padrao, 100)
         self.titulo = self.fonte_titulo.render('GENIUS HEIST', True, (0,0,0))
-        self.titulo_win = self.fonte.render('Você Escapou!', True, (0,0,0))
+        self.titulo_win = self.fonte.render('Você Escapou!', True, (0, 0, 0))
+        self.titulo_game_over = self.fonte.render('Game Over', True, (255, 255, 255))
 
     def atualiza_estado(self):
         self.mouse_pos = pygame.mouse.get_pos()
@@ -92,28 +102,27 @@ class Game:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN and self.nivel[self.atual] == 'menu':
-                if functions.clique_jogar(self,SCREEN_WIDTH,SCREEN_HEIGHT):
-                    self.atual +=1
+            
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if self.nivel[self.atual] == 'menu':
+                    functions.botoes_menu(self)
 
-                if functions.clique_tutorial(self,SCREEN_WIDTH,SCREEN_HEIGHT):
-                    return False
-                
-                if functions.clique_sair(self,SCREEN_WIDTH,SCREEN_HEIGHT):
-                    pygame.quit()
-                    sys.exit()
+                elif self.nivel[self.atual] == 'game_over':
+                    functions.botoes_game_over(self)
+                    self.reset()
 
-            if event.type == pygame.MOUSEBUTTONDOWN and self.nivel[self.atual] == 'menu':
-                if functions.clique_jogar(self,SCREEN_WIDTH,SCREEN_HEIGHT):
-                    self.atual = 0
+                elif self.nivel[self.atual] == 'win_screen':
+                    functions.clique_menu(self)
+
+                elif self.nivel[self.atual] == 'tutorial':
+                    functions.clique_retornar(self)
 
         functions.player_hit(self)
         functions.laser_break(self)
         functions.won(self)
 
-        if self.victory:
-            print('victory')
-
+        if self.quit:
+            return False
         return True
     
     #Cria o mapa do jogo
@@ -154,15 +163,22 @@ class Game:
         self.sprites = pygame.sprite.Group()
         self.guns = pygame.sprite.Group()
         self.diamond = pygame.sprite.Group()
-        if self.nivel[self.atual] == 'nivel1':
+        if self.nivel[self.atual] == 'menu':
+            self.map = MAP1
+            self.timer = Timer(TIMER1)
+        elif self.nivel[self.atual] == 'nivel3':
+            self.map = MAP1
+            self.timer = Timer(TIMER1)
+        elif self.nivel[self.atual] == 'nivel1':
             self.map = MAP2
             self.timer = Timer(TIMER2)
-        if self.nivel[self.atual] == 'nivel2':
+        elif self.nivel[self.atual] == 'nivel2':
             self.map = MAP3
             self.timer = Timer(TIMER3)
         self.mapa()
         self.defeat = False
         self.victory = False
+        self.lista_btn_criado = {}
 
 
     def desenha(self):
@@ -195,33 +211,26 @@ class Game:
         if self.nivel[self.atual] == 'menu':
             self.window.blit(self.background, (0, 0))
             self.window.blit(self.titulo, (350, 100))
-            y_start = (SCREEN_HEIGHT - (len(self.botoes) * (self.button_height + 20))) // 2
-            for i, label in enumerate(self.botoes):
-                if label != 'MENU!':
-                    botao = self.fonte.render(label, True, (255, 255, 255))
-                    text_width, text_height = botao.get_size()
-                    x_button = (SCREEN_WIDTH - self.button_width) // 2
-                    y_button = y_start + i * (self.button_height + 50)
-                    x_text = (SCREEN_WIDTH - text_width) // 2
-                    y_text = y_button + (self.button_height - text_height) // 2
-                    self.window.blit(self.button, (x_button, y_button))
-                    self.window.blit(botao, (x_text, y_text))
+            functions.cria_botoes(self,SCREEN_WIDTH,SCREEN_HEIGHT,['jogar','tutorial','sair'],self.mouse_pos[0],self.mouse_pos[1])
 
         #Desenha a victory screen do jogo
-        if self.nivel[self.atual] == 'win_screen':
+        elif self.nivel[self.atual] == 'win_screen':
             self.window.blit(self.background_win, (0, 0))
-            self.window.blit(self.titulo_win, ((SCREEN_WIDTH - self.titulo_win.get_width()) / 2, 100))
-            for i, label in enumerate(self.botoes):
-                if label == 'MENU!':
-                    text_surface = self.fonte.render(label, True, (255, 255, 255))
-                    text_width, text_height = text_surface.get_size()
-                    self.x_button = (SCREEN_WIDTH - self.button_width) // 2
-                    self.y_button = 300 + (self.button_height + 50)
-                    y_text = self.y_button + (self.button_height - text_height) // 2
-                    self.window.blit(self.button_victory, (self.x_button, self.y_button))
-                    self.window.blit(text_surface, ((SCREEN_WIDTH - text_width) // 2, y_text))
+            self.window.blit(self.titulo_win, ((SCREEN_WIDTH - self.titulo_win.get_width()) / 2, 200))
+            functions.cria_botoes(self,SCREEN_WIDTH,SCREEN_HEIGHT,['MENU!'],self.mouse_pos[0],self.mouse_pos[1])
+
 
         #Desenha a tela de game over do jogo
+        elif self.nivel[self.atual] == 'game_over':
+            self.window.fill((0, 0, 0))
+            self.window.blit(self.titulo_game_over, ((SCREEN_WIDTH - self.titulo_game_over.get_width()) // 2, 100))
+            self.button_width, self.button_height = self.button.get_size()
+            functions.cria_botoes(self,SCREEN_WIDTH,SCREEN_HEIGHT,['restart','sair'],self.mouse_pos[0],self.mouse_pos[1])
+
+        #O tutorial se trata do texto em uma imagem de fundo, pois sentimos que este era mais pratico e util deste modo
+        elif self.nivel[self.atual] == 'tutorial':
+            self.window.blit(self.background_tutorial, (0, 0))
+            functions.cria_botoes(self,SCREEN_WIDTH,SCREEN_HEIGHT,['retornar'],self.mouse_pos[0],self.mouse_pos[1])
 
 
 # alguns trechos da parte responsavel por resetar o game foi feita pelo GPT        
@@ -233,9 +242,11 @@ class Game:
                 self.player1.move(self.walls, self.guns)
                 self.player2.move(self.walls, self.guns)
                 self.desenha()
-            if self.defeat or self.timer.time() == False and self.nivel[self.atual] != 'win_screen' and self.nivel[self.atual] != 'menu' and self.nivel[self.atual] != 'game_over':
-                self.gameover.start()
+            if self.defeat or self.timer.time() == False and self.nivel[self.atual] != 'win_screen' and self.nivel[self.atual] != 'menu' and self.nivel[self.atual] != 'game_over' and self.nivel[self.atual] != 'tutorial':
+                pygame.mixer.music.stop()
+                self.loss_sound.play()
                 self.reset()
+                self.atual = 5
             if self.victory:
                 self.reset()
                 self.atual += 1

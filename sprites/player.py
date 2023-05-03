@@ -68,7 +68,6 @@ class Player1(pyg.sprite.Sprite):
             self.image = pyg.transform.scale(self.player, (30, 50)).convert_alpha()
 
 
-
 class Player2(pyg.sprite.Sprite):
     
     def __init__(self, position, group):
