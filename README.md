@@ -11,10 +11,10 @@ O jogo é baseado em movimentos absolutos, ou seja, cada personagem pode se move
 
 ### [Segue um guia rápido:]
 
-W / ↑: movimenta o personagem para cima
-A / ←: movimenta o personagem para a esquerda
-S / ↓: movimenta o personagem para baixo
-D / →: movimenta o personagem para a direita
+W / ↑: movimenta o personagem para cima\n
+A / ←: movimenta o personagem para a esquerda\n
+S / ↓: movimenta o personagem para baixo\n
+D / →: movimenta o personagem para a direita\n
 
 ## [Como instalar e executar o jogo]
 
@@ -24,8 +24,3 @@ Para executar o jogo, é necessário ter instalado em sua máquina o Python 3 e 
 
 Este jogo foi desenvolvido pelos alunos Gustavo Barroso e João Pedro Sarti, ambos estudantes do curso de Ciência da Computação no Insper. Este projeto foi criado com o intuito de praticar e aprimorar as habilidades em Python e desenvolvimento web, além de ser uma atividade do curso de DevLife.
 
-Todos os sons foram retirados de uma biblioteca gratuita e sem copyrights do site freesound.org, então alterados em um editor de som para combinarem melhor com o jogo.
-Musica principal de fundo: "Lakey Inspired - Feeling Good pt. 2"
-
-Pixel art do site:
-https://craftpix.net/freebies/free-city-backgrounds-pixel-art/
