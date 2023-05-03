@@ -11,10 +11,10 @@ O jogo é baseado em movimentos absolutos, ou seja, cada personagem pode se move
 
 ### [Segue um guia rápido:]
 
-W / ↑: movimenta o personagem para cima\n
-A / ←: movimenta o personagem para a esquerda\n
-S / ↓: movimenta o personagem para baixo\n
-D / →: movimenta o personagem para a direita\n
+W / ↑: movimenta o personagem para cima  
+A / ←: movimenta o personagem para a esquerda  
+S / ↓: movimenta o personagem para baixo  
+D / →: movimenta o personagem para a direita  
 
 ## [Como instalar e executar o jogo]
 
